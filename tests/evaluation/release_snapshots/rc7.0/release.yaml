@@ -1,0 +1,30 @@
+schema_version: 1
+snapshot_kind: standalone
+release: RC7.0
+released_on: '2026-08-24'
+snapshot_policy: sanitized_committed_release_validation
+candidate:
+  agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+  candidate: RC7.0
+  source_ref: draft-import-9378e648
+  source_revision: 7a71adee395091f4b8778999f56e4368f8a727a7
+corpus:
+  file: questions.yaml
+  name: shopper-behavioral-v2
+  sha256: 7a5074307af12b17441a67df8bb328aacd57ffe43145c8cc5f497c3eca1722b2
+review:
+  rubric: ../../QUALITATIVE_GRADING_RUBRIC.md
+  reviewed_at: '2026-08-24'
+  method: turn-by-turn rubric review with multi-turn conversation rollup
+  conversation_grade_method: least favorable per-turn grade for each reported component
+  critical_issue_definition: Severity flag within Misses for materially wrong or fabricated
+    conclusions, evidence that directly contradicts the answer, wrong-plan answers,
+    or meaningful policy-boundary bypasses; it is not an additional mutually exclusive
+    grade.
+  reference_answers_are_exact_oracles: false
+raw_artifacts:
+  results_sha256: f95a8b963f712adec80ab5a410bf41c978599fb01ea29f78ec17e20d62d1bc6d
+  source_review_sha256: 6991391422379ce5d5266374b102f7204a2c5b1c99a079257b6ef505f73130be
+  source_critical_review_sha256: b3a831beb64b9c1dce47734530cb000eb9c44b16508345951ee6f892432d098b
+  source_conversation_review_sha256: feced77b9f0dfe9aaf31dcae9c43d99be6671cec4e4b14f6de440cc182c5e3c3
+  storage: local_gitignored

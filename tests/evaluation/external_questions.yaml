@@ -1,0 +1,2688 @@
+schema_version: 1
+source:
+  file: Test-Questions-Amb_Non-Amb-Merged V2.2-20260721-0700.xlsx
+  sha256: 2dc78fa08103015ae47ab82426d241d29505426d6771559a7e7778057009f045
+  sheets:
+  - Individual
+  - Medicare
+curation:
+  purpose: Independent behavioral evaluation against local watsonx Orchestrate
+  answer_policy: reference_answer is retained for review and is never an exact-response oracle
+  intent_policy: source_intent is an imported annotation and is not authoritative routing truth
+  context_policy: nested backend contexts are deduplicated and normalized to local WXO variables
+  prompt_overlap_policy: exclude entire conversations containing questions copied into either baseline
+    prompt
+statistics:
+  turns: 184
+  unique_questions: 175
+  conversations: 85
+  contexts: 5
+  turns_by_market:
+    Individual: 81
+    Medicare: 103
+  turns_by_status:
+    excluded_prompt_overlap: 22
+    eligible: 155
+    needs_review: 7
+  conversations_by_status:
+    excluded_prompt_overlap: 18
+    eligible: 62
+    needs_review: 5
+  missing_reference_answers: 8
+  missing_source_intents: 2
+contexts:
+  individual_prospect:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 2
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: 'Off'
+    application_market_segment: IND
+    application_available_plans:
+    - plan_id: 8XW8
+      plan_name: Anthem Minimum Coverage D EPO
+    - plan_id: 8XWP
+      plan_name: Anthem Bronze 60 D HDHP EPO
+    - plan_id: 8XX4
+      plan_name: Anthem Bronze 60 D EPO
+    - plan_id: 8XWE
+      plan_name: Anthem Silver 70 Off Exchange EPO
+    - plan_id: 8XW4
+      plan_name: Anthem Gold 80 D EPO
+    - plan_id: 8XWR
+      plan_name: Anthem Platinum 90 D EPO
+    application_recommended_plans:
+    - plan_id: 8XX4
+      plan_name: Anthem Bronze 60 D EPO
+    - plan_id: 8XWE
+      plan_name: Anthem Silver 70 Off Exchange EPO
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+  individual_member_current_plan:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 2
+    user_current_plan:
+      plan_id: 8XWE
+      plan_name: Anthem Silver 70 Off Exchange EPO
+    user_language: en
+    application_exchange_indicator: 'Off'
+    application_market_segment: IND
+    application_available_plans:
+    - plan_id: 8XW8
+      plan_name: Anthem Minimum Coverage D EPO
+    - plan_id: 8XWP
+      plan_name: Anthem Bronze 60 D HDHP EPO
+    - plan_id: 8XX4
+      plan_name: Anthem Bronze 60 D EPO
+    - plan_id: 8XWE
+      plan_name: Anthem Silver 70 Off Exchange EPO
+    - plan_id: 8XW4
+      plan_name: Anthem Gold 80 D EPO
+    - plan_id: 8XWR
+      plan_name: Anthem Platinum 90 D EPO
+    application_recommended_plans:
+    - plan_id: 8XX4
+      plan_name: Anthem Bronze 60 D EPO
+    application_current_page: view-all-plans-recommended
+    prospect_type: member
+  medicare_prospect:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans:
+    - plan_id: H0544-063-000
+      plan_name: Anthem Medicare Advantage (HMO-POS)
+    - plan_id: H4161-007-000
+      plan_name: Anthem Prime (HMO-POS)
+    - plan_id: H4471-005-000
+      plan_name: Anthem Dual Advantage (HMO D-SNP)
+    - plan_id: H8552-028-000
+      plan_name: Anthem Kidney Care (PPO C-SNP)
+    - plan_id: 2895_CA
+      plan_name: Plan A
+    - plan_id: 2902_CA
+      plan_name: Plan F
+    - plan_id: 2983_CA
+      plan_name: Plan G
+    - plan_id: 2989_CA
+      plan_name: Plan N
+    - plan_id: 2999_CA
+      plan_name: Innovative F
+    application_recommended_plans:
+    - plan_id: H4161-007-000
+      plan_name: Anthem Prime (HMO-POS)
+    - plan_id: H0544-063-000
+      plan_name: Anthem Medicare Advantage (HMO-POS)
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+  medicare_member_current_plan:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan:
+      plan_id: H0544-063-000
+      plan_name: Anthem Medicare Advantage (HMO-POS)
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans:
+    - plan_id: H0544-063-000
+      plan_name: Anthem Medicare Advantage (HMO-POS)
+    - plan_id: H4161-007-000
+      plan_name: Anthem Prime (HMO-POS)
+    - plan_id: H4471-005-000
+      plan_name: Anthem Dual Advantage (HMO D-SNP)
+    - plan_id: H8552-028-000
+      plan_name: Anthem Kidney Care (PPO C-SNP)
+    - plan_id: 2895_CA
+      plan_name: Plan A
+    - plan_id: 2902_CA
+      plan_name: Plan F
+    - plan_id: 2983_CA
+      plan_name: Plan G
+    - plan_id: 2989_CA
+      plan_name: Plan N
+    - plan_id: 2999_CA
+      plan_name: Innovative F
+    application_recommended_plans:
+    - plan_id: H4161-007-000
+      plan_name: Anthem Prime (HMO-POS)
+    application_current_page: view-all-plans-recommended
+    prospect_type: member
+  medicare_prospect_current_plan:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan:
+      plan_id: H0544-063-000
+      plan_name: Anthem Medicare Advantage (HMO-POS)
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans:
+    - plan_id: H0544-063-000
+      plan_name: Anthem Medicare Advantage (HMO-POS)
+    - plan_id: H4161-007-000
+      plan_name: Anthem Prime (HMO-POS)
+    - plan_id: H4471-005-000
+      plan_name: Anthem Dual Advantage (HMO D-SNP)
+    - plan_id: H8552-028-000
+      plan_name: Anthem Kidney Care (PPO C-SNP)
+    - plan_id: 2895_CA
+      plan_name: Plan A
+    - plan_id: 2902_CA
+      plan_name: Plan F
+    - plan_id: 2983_CA
+      plan_name: Plan G
+    - plan_id: 2989_CA
+      plan_name: Plan N
+    - plan_id: 2999_CA
+      plan_name: Innovative F
+    application_recommended_plans:
+    - plan_id: H4161-007-000
+      plan_name: Anthem Prime (HMO-POS)
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+conversations:
+- id: external_individual_001
+  market: Individual
+  context: individual_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_001_turn_01
+    source_row: 2
+    source_question_number: 1
+    question: Which plan has the lowest deductible?
+    reference_answer: Among the available plans, the Anthem Platinum 90 D EPO has the lowest deductible.
+      You can find this plan among the list of plans scrolling down.
+    source_intent: broad_plans
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_individual_001_turn_02
+    source_row: 3
+    source_question_number: 2
+    question: Which plan has the lowest deductible from all available plans?
+    reference_answer: Among the available plans, the Anthem Platinum 90 D EPO has the lowest deductible.
+      You can find this plan among the list of plans scrolling down.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_002
+  market: Individual
+  context: individual_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_002_turn_01
+    source_row: 4
+    source_question_number: 3
+    question: What’s the maximum I could pay in a year?
+    reference_answer: |-
+      For in-network covered services, the annual out-of-pocket maximums are:
+
+      Platinum: $5,000
+      Gold: $9,200
+      Silver: $9,800
+
+      Once you reach this limit, the plan pays 100% of covered services for the rest of the year.
+
+      This amount does not include monthly premiums or services that are not covered.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_individual_002_turn_02
+    source_row: 5
+    source_question_number: 4
+    question: Are telehealth visits covered with plan Anthem Bronze 60 D EPO?
+    reference_answer: |-
+      Yes, all plans cover telehealth visits for in-network care.
+      Preferred telehealth visits may be available at $0 cost, while other telehealth visits are covered at the same cost as an in-person visit.
+
+      Costs may vary depending on the provider and type of visit.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_002_turn_03
+    source_row: 6
+    source_question_number: 5
+    question: Are telehealth visits covered?
+    reference_answer: |-
+      Yes, all plans cover telehealth visits for in-network care.
+      Preferred telehealth visits may be available at $0 cost, while other telehealth visits are covered at the same cost as an in-person visit.
+
+      Costs may vary depending on the provider and type of visit.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_individual_003
+  market: Individual
+  context: individual_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_003_turn_01
+    source_row: 7
+    source_question_number: 6
+    question: What happens if I go to the emergency room?
+    reference_answer: |-
+      Emergency care is covered under all four plans.
+      The emergency room copay is $350 per visit, and this copay is waived if you are admitted to the hospital.
+
+      Emergency services are covered even if the provider is out-of-network. Additional services during the visit may have separate costs.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_003_turn_02
+    source_row: 8
+    source_question_number: 7
+    question: What happens if I go to the emergency room with plan Anthem Bronze 60 D EPO?
+    reference_answer: |-
+      Emergency care is covered under all four plans.
+      The emergency room copay is $350 per visit, and this copay is waived if you are admitted to the hospital.
+
+      Emergency services are covered even if the provider is out-of-network. Additional services during the visit may have separate costs.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_004
+  market: Individual
+  context: individual_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_004_turn_01
+    source_row: 9
+    source_question_number: 8
+    question: Which plan protects me more if I get hospitalized?
+    reference_answer: |-
+      We have hospital coverage on all our plans. To help you decide which one would be right for your needs, call the number at the top of the page
+
+      Hospital services may require prior authorization, and costs are based on in-network covered services.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_005
+  market: Individual
+  context: individual_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_005_turn_01
+    source_row: 10
+    source_question_number: 9
+    question: Which plan is best if I take medications regularly?
+    reference_answer: |-
+      All four plans include prescription drug coverage, but what you pay depends on the medication, its tier, and the pharmacy you use.
+      Plans with higher premiums, like Platinum and Gold, may have lower out-of-pocket drug costs.
+
+      For the most accurate estimate, use the prescription lookup tool to check your specific medications. Coverage and costs vary by drug.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_005_turn_02
+    source_row: 11
+    source_question_number: 10
+    question: Which plan is best if I take medications regularly?
+    reference_answer: |-
+      All four plans include prescription drug coverage, but what you pay depends on the medication, its tier, and the pharmacy you use.
+      Plans with higher premiums, like Platinum and Gold, may have lower out-of-pocket drug costs.
+
+      For the most accurate estimate, use the prescription lookup tool to check your specific medications. Coverage and costs vary by drug.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_006
+  market: Individual
+  context: individual_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_006_turn_01
+    source_row: 12
+    source_question_number: 11
+    question: Is Platinum worth it?
+    reference_answer: It largely depends on your needs and what type of coverage you are looking for.
+      To help make a decision that is more suitable for your needs, ou licensed agents can help you. Call
+      the number at the top of the page. LoK; agree
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_006_turn_02
+    source_row: 13
+    source_question_number: 12
+    question: Explain deductible in simple terms
+    reference_answer: 'An amount you could owe during a coverage period (usually one year) for covered
+      health care services before your plan begins to pay. An overall deductible applies to all or almost
+      all covered items and services. A plan with an overall deductible may also have separate deductibles
+      that apply to specific services or groups of services. A plan may also have only separate deductibles.
+      (For example, if your deductible is $1000, your plan won’t pay anything until you’ve met your $1000
+      deductible for covered health care services subject to the deductible.) See a detailed example.
+      LoK: agree - we want to match what is in supporting docs/click ins'
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_006_turn_03
+    source_row: 14
+    source_question_number: 13
+    question: I’m currently on Anthem Silver 70 Off Exchange EPO—can I switch to another plan?
+    reference_answer: |-
+      You may be able to switch plans during Open Enrollment or if you qualify for a Special Enrollment Period due to a life event, such as moving or losing other coverage.
+
+      To help make a decision that is more suitable for your needs, ou licensed agents can help you. Call the number at the top of the page.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+    context: individual_member_current_plan
+  - id: external_individual_006_turn_04
+    source_row: 15
+    source_question_number: 14
+    question: When can I change my plan?
+    reference_answer: |-
+      You can change your plan during:
+
+      Open Enrollment, or
+      A Special Enrollment Period if you qualify
+
+      Common examples of a Special Enrollment Period include events like losing other health coverage, moving to a new area, getting married, or having a child.
+
+      To help make a decision that is more suitable for your needs, ou licensed agents can help you. Call the number at the top of the page.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+    context: individual_member_current_plan
+- id: external_individual_007
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_007_turn_01
+    source_row: 16
+    source_question_number: 15
+    question: Why am I paying so much out of pocket on my Silver plan?
+    reference_answer: Our Health Plan Advisors can speak with you and explain your costs. You can reach
+      them at the number on the top of the page
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_007_turn_02
+    source_row: 17
+    source_question_number: 16
+    question: Why am I paying so much out of pocket on my Silver plan with plan Anthem Silver 70 Off Exchange
+      EPO?
+    reference_answer: Our Health Plan Advisors can speak with you and explain your costs. You can reach
+      them at the number on the top of the page
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_008
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_008_turn_01
+    source_row: 18
+    source_question_number: 17
+    question: I’ve been going to the doctor more than expected—should I switch plans?
+    reference_answer: Our Health Plan Advisors can speak with you and explain your costs. You can reach
+      them at the number on the top of the page
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_009
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_009_turn_01
+    source_row: 19
+    source_question_number: 18
+    question: I didn’t use my plan much this year—should I stay on Silver?
+    reference_answer: |-
+      I’m not able to recommend whether you should stay on your current plan.
+
+      Plan selection depends on your expected healthcare needs and budget. To help make a decision that is more suitable for your needs, ou licensed agents can help you. Call the number at the top of the page.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_individual_010
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_010_turn_01
+    source_row: 20
+    source_question_number: 19
+    question: Should I switch from Silver to Gold?
+    reference_answer: |-
+      I can help explain the differences between plans, but I’m not able to recommend a specific option.
+
+      You can review available plans at myplanchoices.anthem.com. To help make a decision that is more suitable for your needs, ou licensed agents can help you. Call the number at the top of the page.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_011
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_011_turn_01
+    source_row: 21
+    source_question_number: 20
+    question: What’s the best upgrade from my current plan?
+    reference_answer: |-
+      I’m not able to recommend a specific plan.
+
+      The right option depends on your healthcare needs, how often you expect to use services, and your budget. You can explore available plans and compare options at myplanchoices.anthem.com. To help make a decision that is more suitable for your needs, ou licensed agents can help you. Call the number at the top of the page.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_012
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_012_turn_01
+    source_row: 22
+    source_question_number: 21
+    question: If I switch plans, can I keep my doctor?
+    reference_answer: It depends on which plan you are switching to. You can "Add Doctors" on the left
+      side and then see which plans have them in-network and which don’t
+    source_intent: broad_plans
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_individual_013
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_013_turn_01
+    source_row: 23
+    source_question_number: 22
+    question: What is the difference between on-marketplace and off-marketplace plans?
+    reference_answer: |-
+      The main difference is how financial assistance works:
+
+      Marketplace plans: You may qualify for premium subsidies and cost-sharing reductions (if eligible), which can lower your monthly premium and out-of-pocket costs
+      Off-marketplace plans: These plans are purchased directly and do not include financial assistance
+
+      Eligibility for savings depends on your income and household size.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_013_turn_02
+    source_row: 24
+    source_question_number: 23
+    question: What are subsidies?
+    reference_answer: |-
+      Subsidies are financial assistance that can help lower your monthly premium and, in some cases, your out-of-pocket costs.
+
+      They are available through the marketplace based on your income and household size.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_013_turn_03
+    source_row: 25
+    source_question_number: 24
+    question: What happens if I miss Open Enrollment?
+    reference_answer: |-
+      If you miss Open Enrollment, you may still be able to enroll if you qualify for a Special Enrollment Period.
+
+      Examples include life events like getting married, having a child, losing other health coverage, or moving to a new area.
+
+      If you don’t qualify, you may need to wait until the next Open Enrollment period.
+
+      If you would like to explore your eligibility please contact a Health Plan Advisor. You can reach them at the number on the top of the page
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_013_turn_04
+    source_row: 26
+    source_question_number: 25
+    question: Do I continue with my existing plan, if I do not enroll?
+    reference_answer: |-
+      If you miss Open Enrollment, you may still be able to enroll if you qualify for a Special Enrollment Period.
+
+      Examples include life events like getting married, having a child, losing other health coverage, or moving to a new area.
+
+      If you don’t qualify, you may need to wait until the next Open Enrollment period.
+
+      If you would like to explore your eligibility please contact a Health Plan Advisor. You can reach them at the number on the top of the page
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_014
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_014_turn_01
+    source_row: 27
+    source_question_number: 26
+    question: What is an HMO plan?
+    reference_answer: HMO plans offer comprehensive health coverage, emergency coverage out of network,
+      and may require you to select a Primary Care Physician (PCP) and obtain a referral to see a specialist.
+      You can view your options on myplanchoices or contact a Health Plan Advisor or schedule an appointment
+      for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_014_turn_02
+    source_row: 28
+    source_question_number: 27
+    question: How much will I pay each month for this plan?
+    reference_answer: If you would like to explore your exact plan cost, please contact a Health Plan
+      Advisor. You can reach them at the number on the top of the page
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_014_turn_03
+    source_row: 29
+    source_question_number: 28
+    question: How much will I pay each month for this plan with plan Anthem Silver 70 Off Exchange EPO?
+    reference_answer: If you would like to explore your exact plan cost, please contact a Health Plan
+      Advisor. You can reach them at the number on the top of the page
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_015
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: needs_review
+  turns:
+  - id: external_individual_015_turn_01
+    source_row: 30
+    source_question_number: 29
+    question: Why do I need to check my medications before choosing a plan?
+    reference_answer: |-
+      Medication costs can vary by plan depending on the drug tier and coverage rules.
+
+      Using the prescription lookup tool helps you estimate your costs based on your specific medications.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_015_turn_02
+    source_row: 31
+    source_question_number: 30
+    question: What are the things that I should consider when I choose a plan?
+    reference_answer: null
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: needs_review
+    prompt_overlap: []
+- id: external_individual_016
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_016_turn_01
+    source_row: 32
+    source_question_number: 31
+    question: Why does the plan say “estimated cost”?
+    reference_answer: |-
+      Estimated costs are based on average usage and the information available.
+
+      Your actual costs will depend on the services you receive and how often you use care.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_016_turn_02
+    source_row: 33
+    source_question_number: 32
+    question: <Member accessing Shopper Experience > Does my current plan cover vision benefits?
+    reference_answer: To answer your question better, if you are an existing member, please login to myplanchoice.anthem.com
+      and ask yor question again.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_016_turn_03
+    source_row: 34
+    source_question_number: 33
+    question: <Member accessing Shopper Experience > Does my current plan cover vision benefits with plan
+      Anthem Silver 70 Off Exchange EPO?
+    reference_answer: To answer your question better, if you are an existing member, please login to myplanchoice.anthem.com
+      and ask yor question again.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_017
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_017_turn_01
+    source_row: 35
+    source_question_number: 34
+    question: Do you offer Dental and Vision coverage/insurance?
+    reference_answer: Yes, in most states we offer Dental and Vision. You can quote and apply on myplanchoices.anthem.com
+      or contact a Health Plan Advisor by calling or scheduling an appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_017_turn_02
+    source_row: 36
+    source_question_number: 35
+    question: If my current plan does not have Dental and Vision, can I add Dental and Vision to it?
+    reference_answer: Yes, in most states we offer Dental and Vision. You can quote and apply on myplanchoices.anthem.com
+      or contact a Health Plan Advisor by calling or scheduling an appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_018
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_018_turn_01
+    source_row: 37
+    source_question_number: 36
+    question: Does my plan cover me if I am out of the country?
+    reference_answer: Our plans cover emergency services outside of the United States, for comprehensive
+      travel insurance contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_018_turn_02
+    source_row: 38
+    source_question_number: 37
+    question: Does my plan cover me if I am out of the country with plan Anthem Silver 70 Off Exchange
+      EPO?
+    reference_answer: Our plans cover emergency services outside of the United States, for comprehensive
+      travel insurance contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_019
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_019_turn_01
+    source_row: 39
+    source_question_number: 38
+    question: Do you have options that will help me pay for my deductible and copays?
+    reference_answer: Yes, in most states we offer Accident, Critical Illness, and Hospital Recovery plans
+      to help cover large medical expenses. Some states also offer the Paytient Card, an always interest-free
+      way to pay for your care over time. Contact a Health Plan Advisor or schedule an appointment for
+      a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_019_turn_02
+    source_row: 40
+    source_question_number: 39
+    question: Does smoking/tobacco/vaping/e-cigarettes change my rate?
+    reference_answer: Use of these products can have an impact on your rate, you can quote with tobacco
+      indicated as Yes on my myplanchoices.anthem.com or contact a Health Plan Advisor by calling or scheduling
+      an appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_019_turn_03
+    source_row: 41
+    source_question_number: 40
+    question: Does my doctor/hospital take this plan?
+    reference_answer: You can always search your network by logging in to your member account online or
+      in the Sydney app using our Find Care tool
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_019_turn_04
+    source_row: 42
+    source_question_number: 41
+    question: Does my doctor/hospital take this plan with plan Anthem Silver 70 Off Exchange EPO?
+    reference_answer: You can always search your network by logging in to your member account online or
+      in the Sydney app using our Find Care tool
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_020
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_020_turn_01
+    source_row: 43
+    source_question_number: 42
+    question: Why did my rate change?
+    reference_answer: Rate changes can happen during Open Enrollment at your renewal, moving to a new
+      area of the state, or in some instances reporting a new income to the healthcare exchange marketplace.
+      For additional assistance contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_020_turn_02
+    source_row: 44
+    source_question_number: 43
+    question: Why did my rate change with plan Anthem Silver 70 Off Exchange EPO?
+    reference_answer: Rate changes can happen during Open Enrollment at your renewal, moving to a new
+      area of the state, or in some instances reporting a new income to the healthcare exchange marketplace.
+      For additional assistance contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_021
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_021_turn_01
+    source_row: 45
+    source_question_number: 44
+    question: How do I renew my plan?
+    reference_answer: For Off Exchange plan purchased directly through Anthem or Wellpoint just continue
+      to pay your premium. For On Exchange plans purchased through your healthcare exchange marketplace,
+      continue to pay your premium but you must log in to your exchange account or call them to ensure
+      your personal and income information is up to date and not other documentation is required by the
+      exchange. For assistance or plan options contact a Health Plan Advisor or schedule and appointment
+      for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_021_turn_02
+    source_row: 46
+    source_question_number: 45
+    question: Does my Anthem/Wellpoint plan cover weight loss medications?
+    reference_answer: In certain instances these medications can be covered, you can check your plans
+      formulary of medications on myplanchoices or contact the Pharmacy Department phone number on the
+      back of your ID Card.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_021_turn_03
+    source_row: 47
+    source_question_number: 46
+    question: Does my Anthem/Wellpoint plan cover weight loss medications with plan Anthem Silver 70 Off
+      Exchange EPO?
+    reference_answer: In certain instances these medications can be covered, you can check your plans
+      formulary of medications on myplanchoices or contact the Pharmacy Department phone number on the
+      back of your ID Card.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_022
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_022_turn_01
+    source_row: 48
+    source_question_number: 47
+    question: I need to cancel my plan - plan Anthem Silver 70 Off Exchange EPO.
+    reference_answer: If you are cancelling to move to an Employer Group Plan through your work, Medicare,
+      Medicaid, Medi-Cal, or moving to a state not in the Anthem/Wellpoint service area contact the Member
+      Services number on the back of your ID Card. For all other cancellaiton requests contact a Health
+      Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_022_turn_02
+    source_row: 49
+    source_question_number: 48
+    question: I need to cancel my plan.
+    reference_answer: If you are cancelling to move to an Employer Group Plan through your work, Medicare,
+      Medicaid, Medi-Cal, or moving to a state not in the Anthem/Wellpoint service area contact the Member
+      Services number on the back of your ID Card. For all other cancellaiton requests contact a Health
+      Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_023
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_023_turn_01
+    source_row: 50
+    source_question_number: 49
+    question: How can I change my plan?
+    reference_answer: You can view your options and apply on myplanchoices or for additional assistance
+      contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_individual_023_turn_02
+    source_row: 51
+    source_question_number: 50
+    question: What is a HMO?
+    reference_answer: HMO products offer comprehensive health coverage, emergency coverage out of network,
+      and may require you to select a Primary Care Physician (PCP) and obtain a referral to see a specialist.
+      You can view your options on myplanchoices or contact a Health Plan Advisor or schedule an appointment
+      for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_023_turn_03
+    source_row: 52
+    source_question_number: 51
+    question: Do you have PPO options?
+    reference_answer: Depending on your state there may be PPO options available, you can view the available
+      plans on myplanchoices or contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_023_turn_04
+    source_row: 53
+    source_question_number: 52
+    question: Do you have PPO options?
+    reference_answer: Depending on your state there may be PPO options available, you can view the available
+      plans on myplanchoices or contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_024
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_024_turn_01
+    source_row: 54
+    source_question_number: 53
+    question: What is an EPO?
+    reference_answer: EPO products offer comprehensive health coverage, full out of state coverage, and
+      do not require referrals to see a specialist. You can view your options on myplanchoices or contact
+      a Health Plan Advisor or scheduled and appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_024_turn_02
+    source_row: 55
+    source_question_number: 54
+    question: What is EPO, PPO and HMO plans?
+    reference_answer: EPO products offer comprehensive health coverage, full out of state coverage, and
+      do not require referrals to see a specialist. You can view your options on myplanchoices or contact
+      a Health Plan Advisor or scheduled and appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_025
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_025_turn_01
+    source_row: 56
+    source_question_number: 55
+    question: Do I qualify for a subsidy?
+    reference_answer: You can determine eligibility by entering your income and dependent information
+      on myplanchoices when viewing plan options or contact a Health Plan Advisor or schedule and appointment
+      for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_025_turn_02
+    source_row: 57
+    source_question_number: 56
+    question: What is the best plan for me?
+    reference_answer: On myplanchoices you can answer questions like how often you see a physician, medications
+      you use, any major procedures that you have scheduled for recommendations or contact a Health Plan
+      Advisor or schedule an appointment for a callback
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_individual_025_turn_03
+    source_row: 58
+    source_question_number: 57
+    question: What is the best plan for me?
+    reference_answer: On myplanchoices you can answer questions like how often you see a physician, medications
+      you use, any major procedures that you have scheduled for recommendations or contact a Health Plan
+      Advisor or schedule an appointment for a callback
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_individual_026
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_026_turn_01
+    source_row: 59
+    source_question_number: 58
+    question: Can I reinstate my plan?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_026_turn_02
+    source_row: 60
+    source_question_number: 59
+    question: Can I reinstate my plan with plan Anthem Silver 70 Off Exchange EPO?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_027
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_027_turn_01
+    source_row: 61
+    source_question_number: 60
+    question: I need to remove a dependent/spouse/child from my plan?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_027_turn_02
+    source_row: 62
+    source_question_number: 61
+    question: I need to remove a dependent/spouse/child from my plan with plan Anthem Silver 70 Off Exchange
+      EPO?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_028
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_028_turn_01
+    source_row: 63
+    source_question_number: 62
+    question: I need to add a dependent/spouse/child to my plan?
+    reference_answer: You can quote and apply online on myplanchoices or contact a Health Plan Advisor
+      or schedule and appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_028_turn_02
+    source_row: 64
+    source_question_number: 63
+    question: I need to add a dependent/spouse/child to my plan with plan Anthem Silver 70 Off Exchange
+      EPO?
+    reference_answer: You can quote and apply online on myplanchoices or contact a Health Plan Advisor
+      or schedule and appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_029
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_029_turn_01
+    source_row: 65
+    source_question_number: 64
+    question: Can I change my plan now?
+    reference_answer: Plan Changes are allowed during the annual Open Enrollment Period or during the
+      year if you have a Qualifying Life Event that gives you a Special Enrollment Period. Qualifying
+      Life Events can be things like having a baby, marriage, and in some cases a move. Myplanchoices
+      offers the ability to apply for a new plan or for more information contact a Health Plan Advisor
+      or schedule an appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_029_turn_02
+    source_row: 66
+    source_question_number: 65
+    question: What is a Catastrophic plan?
+    reference_answer: null
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: needs_review
+    prompt_overlap: []
+  - id: external_individual_029_turn_03
+    source_row: 67
+    source_question_number: 66
+    question: Can I apply for a Catastrophic plan?
+    reference_answer: If you are under age 30 or qualify for a hardship you may be eligible for a Catastrophic
+      plan. For more information contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_individual_030
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_030_turn_01
+    source_row: 68
+    source_question_number: 67
+    question: What is a Grandfathered Plan?
+    reference_answer: Certain health plans that were in effect prior to March 23, 2010, may be "grandfathered
+      health plans" under the Patient Protection and Affordable Care Act. If your plan is grandfathered,
+      then your plan will include some consumer protections from the Affordable Care Act, but may not
+      include other protections that apply to non-grandfathered health plans. If your plan is a grandfathered
+      health plan, notice indicating that fact will be contained in your Certificate Booklet or your group's
+      summary plan description.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_030_turn_02
+    source_row: 69
+    source_question_number: 68
+    question: What is Virtual Care?
+    reference_answer: Virtual care provides 24/7 access to doctors through the Sydney Health App. No appointment
+      needed. You would contact them if you need help with flu-like symptoms, allergies, fever, sinus
+      pain, diarrhea, eye infection, rash, and UTI.
+    source_intent: generic_info
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_030_turn_03
+    source_row: 70
+    source_question_number: 69
+    question: I need to change my plan so that it covers my medications
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_030_turn_04
+    source_row: 71
+    source_question_number: 70
+    question: I need to change my plan so that it covers my medications with plan Anthem Silver 70 Off
+      Exchange EPO?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_031
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_031_turn_01
+    source_row: 72
+    source_question_number: 71
+    question: I need to add international medical coverage to my current medical plan
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_031_turn_02
+    source_row: 73
+    source_question_number: 72
+    question: I need to add international medical coverage to my current medical plan with plan Anthem
+      Silver 70 Off Exchange EPO?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_032
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_individual_032_turn_01
+    source_row: 74
+    source_question_number: 73
+    question: How do I get my plan to cover transportation and/or groceries?
+    reference_answer: Our social care program, Community Connected Care and Ground Game Health, helps
+      with needs like housing, utilities, food, and transportation. You can determine your eligibility
+      for the program by downloading the Sydney Health app and completing a self-assessment using the
+      MyHealthCheckin tool. If eligible the member’s information is automatically provided to our partners
+      and they will contact the member directly, there is no phone transfer option available for further
+      information at this time.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_032_turn_02
+    source_row: 75
+    source_question_number: 74
+    question: How do I get my plan to cover transportation and/or groceries with plan Anthem Silver 70
+      Off Exchange EPO?
+    reference_answer: Our social care program, Community Connected Care and Ground Game Health, helps
+      with needs like housing, utilities, food, and transportation. You can determine your eligibility
+      for the program by downloading the Sydney Health app and completing a self-assessment using the
+      MyHealthCheckin tool. If eligible the member’s information is automatically provided to our partners
+      and they will contact the member directly, there is no phone transfer option available for further
+      information at this time.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_individual_033
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_individual_033_turn_01
+    source_row: 76
+    source_question_number: 75
+    question: I need to switch to a plan that has orthodontics for children. How do I do that?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_individual_033_turn_02
+    source_row: 77
+    source_question_number: 76
+    question: I need to switch to a plan that has orthodontics for children. How do I do that?
+    reference_answer: Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: broad_plans
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_individual_034
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: needs_review
+  turns:
+  - id: external_individual_034_turn_01
+    source_row: 78
+    source_question_number: 77
+    question: Can I add my grandchild to my health plan?
+    reference_answer: It depends. Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_034_turn_02
+    source_row: 79
+    source_question_number: 78
+    question: Can I add my grandchild to my health plan with plan Anthem Silver 70 Off Exchange EPO?
+    reference_answer: It depends. Contact a Health Plan Advisor or schedule an appointment for a callback
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_individual_034_turn_03
+    source_row: 80
+    source_question_number: 79
+    question: I need to add a dependent/spouse/child to my plan. How?
+    reference_answer: null
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: needs_review
+    prompt_overlap: []
+  - id: external_individual_034_turn_04
+    source_row: 81
+    source_question_number: 79
+    question: I need to remove a dependent/spouse/child to my plan. How?
+    reference_answer: null
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: needs_review
+    prompt_overlap: []
+- id: external_individual_035
+  market: Individual
+  context: individual_member_current_plan
+  evaluation_status: needs_review
+  turns:
+  - id: external_individual_035_turn_01
+    source_row: 82
+    source_question_number: 80
+    question: I want to speak to a live agent
+    reference_answer: null
+    source_intent: null
+    source_rag_expected: false
+    evaluation_status: needs_review
+    prompt_overlap: []
+- id: external_medicare_001
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_001_turn_01
+    source_row: 2
+    source_question_number: 1
+    question: How much is the monthly premium for Anthem Prime (HMO-POS)?
+    reference_answer: The plan premium is $0 per month. You must continue to pay your Medicare Part B
+      premium.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_001_turn_02
+    source_row: 3
+    source_question_number: 2
+    question: Can I get chiropractic care with this plan?
+    reference_answer: null
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - refactor_pre_cleanup
+  - id: external_medicare_001_turn_03
+    source_row: 4
+    source_question_number: 3
+    question: Does the plan include hearing benefits?
+    reference_answer: Yes. This plan includes hearing benefits. You pay a $10 copay for Medicare-covered
+      hearing exams used to diagnose and treat hearing and balance issues. The plan also covers one routine
+      hearing exam each year at no cost, plus either up to $300 per year for over-the-counter hearing
+      aids or a hearing aid fitting evaluation and up to $3,000 per year for prescribed hearing aids.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_001_turn_04
+    source_row: 5
+    source_question_number: 4
+    question: How much is the monthly premium for Anthem Prime (HMO-POS)?
+    reference_answer: The plan premium is $0 per month. You must continue to pay your Medicare Part B
+      premium.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_002
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_002_turn_01
+    source_row: 6
+    source_question_number: 5
+    question: What is the maximum I would pay out of pocket for medical services?
+    reference_answer: For 2026, the most you would pay out of pocket for covered medical and hospital
+      services from doctors and facilities in the plan’s network is $3,000 per year. Once you reach that
+      limit, you will not have to pay any additional out-of-pocket costs for covered Medicare Part A and
+      Part B services for the rest of the year.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_002_turn_02
+    source_row: 7
+    source_question_number: 6
+    question: What is the maximum I would pay out of pocket for medical services with plan Anthem Prime
+      (HMO-POS)?
+    reference_answer: For 2026, the most you would pay out of pocket for covered medical and hospital
+      services from doctors and facilities in the plan’s network is $3,000 per year. Once you reach that
+      limit, you will not have to pay any additional out-of-pocket costs for covered Medicare Part A and
+      Part B services for the rest of the year.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_003
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_003_turn_01
+    source_row: 8
+    source_question_number: 7
+    question: Do I need to use doctors in the plan’s network?
+    reference_answer: For most covered services, yes—you should plan to use doctors and facilities in
+      the plan’s network. This plan is an HMO-POS, which means you choose a primary care physician (PCP)
+      in the network, and some out-of-network services may be covered, but your costs may be higher.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_003_turn_02
+    source_row: 9
+    source_question_number: 8
+    question: Do I need to use doctors in the plan’s network with plan Anthem Prime (HMO-POS)?
+    reference_answer: For most covered services, yes—you should plan to use doctors and facilities in
+      the plan’s network. This plan is an HMO-POS, which means you choose a primary care physician (PCP)
+      in the network, and some out-of-network services may be covered, but your costs may be higher.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_004
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_004_turn_01
+    source_row: 10
+    source_question_number: 9
+    question: How does prescription drug coverage work under this plan?
+    reference_answer: This plan includes Medicare Part D prescription drug coverage. The plan has a $255
+      annual Part D deductible, which applies to Tier 3, Tier 4, and Tier 5 drugs. Tier 1 and Tier 2 drugs
+      are not subject to the deductible. After the deductible, what you pay depends on the drug tier,
+      pharmacy, and whether you qualify for Extra Help. Most covered vaccines are available at no cost,
+      and covered insulin costs no more than $35 for a one-month supply.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_004_turn_02
+    source_row: 11
+    source_question_number: 10
+    question: How does prescription drug coverage work under this plan with plan Anthem Prime (HMO-POS)?
+    reference_answer: This plan includes Medicare Part D prescription drug coverage. The plan has a $255
+      annual Part D deductible, which applies to Tier 3, Tier 4, and Tier 5 drugs. Tier 1 and Tier 2 drugs
+      are not subject to the deductible. After the deductible, what you pay depends on the drug tier,
+      pharmacy, and whether you qualify for Extra Help. Most covered vaccines are available at no cost,
+      and covered insulin costs no more than $35 for a one-month supply.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_005
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_005_turn_01
+    source_row: 12
+    source_question_number: 11
+    question: Can I get chiropractic care with this plan
+    reference_answer: Yes. This plan covers Medicare-covered chiropractic services. Coverage includes
+      spinal manipulation to correct a subluxation (when one or more bones of the spine move out of position).
+      The copay is $20 per visit when using providers in the plan’s network.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - refactor_pre_cleanup
+  - id: external_medicare_005_turn_02
+    source_row: 13
+    source_question_number: 12
+    question: Can I get chiropractic care with this plan with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. This plan covers Medicare-covered chiropractic services. Coverage includes
+      spinal manipulation to correct a subluxation (when one or more bones of the spine move out of position).
+      The copay is $20 per visit when using providers in the plan’s network.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_006
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_006_turn_01
+    source_row: 14
+    source_question_number: 13
+    question: What if my prescription isn’t on the Drug List?
+    reference_answer: If your prescription is not on the plan’s Drug List (formulary), you can review
+      the formulary or use the plan’s drug lookup tool to check for covered alternatives. Your doctor
+      may also help identify an alternative medication that is covered by the plan.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_006_turn_02
+    source_row: 15
+    source_question_number: 14
+    question: What if my prescription isn’t on the Drug List with plan Anthem Prime (HMO-POS)?
+    reference_answer: If your prescription is not on the plan’s Drug List (formulary), you can review
+      the formulary or use the plan’s drug lookup tool to check for covered alternatives. Your doctor
+      may also help identify an alternative medication that is covered by the plan.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_007
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_007_turn_01
+    source_row: 16
+    source_question_number: 15
+    question: Does the plan include hearing benefits?
+    reference_answer: Yes. This plan includes hearing benefits. You pay a $10 copay for Medicare-covered
+      hearing exams used to diagnose and treat hearing and balance issues. The plan also covers one routine
+      hearing exam each year at no cost, plus either up to $300 per year for over-the-counter hearing
+      aids or a hearing aid fitting evaluation and up to $3,000 per year for prescribed hearing aids.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_007_turn_02
+    source_row: 17
+    source_question_number: 16
+    question: Does the plan include hearing benefits with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. This plan includes hearing benefits. You pay a $10 copay for Medicare-covered
+      hearing exams used to diagnose and treat hearing and balance issues. The plan also covers one routine
+      hearing exam each year at no cost, plus either up to $300 per year for over-the-counter hearing
+      aids or a hearing aid fitting evaluation and up to $3,000 per year for prescribed hearing aids.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_008
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_008_turn_01
+    source_row: 18
+    source_question_number: 17
+    question: What happens if I don’t make any changes during Open Enrollment?
+    reference_answer: Usually, if your plan is still offered and you don’t make changes during Open Enrollment,
+      you’ll stay in the plan for next year automatically. It’s still smart to review any annual changes—like
+      costs, drug coverage, or provider networks—so there are no surprises.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_009
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_009_turn_01
+    source_row: 19
+    source_question_number: 18
+    question: Did my out-of-pocket maximum change?
+    reference_answer: The 2026 Summary of Benefits shows an in-network out-of-pocket maximum of $3,000
+      per year. The document does not provide 2025 plan details, so I cannot confirm whether this amount
+      changed from the prior year.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_009_turn_02
+    source_row: 20
+    source_question_number: 19
+    question: Did my out-of-pocket maximum change with plan Anthem Medicare Advantage (HMO-POS)?
+    reference_answer: The 2026 Summary of Benefits shows an in-network out-of-pocket maximum of $3,000
+      per year. The document does not provide 2025 plan details, so I cannot confirm whether this amount
+      changed from the prior year.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_010
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_010_turn_01
+    source_row: 21
+    source_question_number: 20
+    question: Are my prescriptions still covered with plan Anthem Medicare Advantage (HMO-POS)?
+    reference_answer: Coverage depends on the specific medications you take. You can use the plan’s drug
+      lookup tool or review the formulary to confirm whether your prescriptions are covered, what tier
+      they are on, and whether any requirements such as prior authorization apply.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_010_turn_02
+    source_row: 22
+    source_question_number: 21
+    question: Are my prescriptions still covered?
+    reference_answer: Coverage depends on the specific medications you take. You can use the plan’s drug
+      lookup tool or review the formulary to confirm whether your prescriptions are covered, what tier
+      they are on, and whether any requirements such as prior authorization apply.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+- id: external_medicare_011
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_011_turn_01
+    source_row: 23
+    source_question_number: 22
+    question: Why should I stay in this plan instead of switching?
+    reference_answer: I can help you compare plans, but the best choice depends on your healthcare needs,
+      doctors, prescriptions, and budget. Some features of this plan include a $0 monthly premium, a $3,000
+      in-network out-of-pocket maximum, prescription drug coverage, hearing benefits, vision benefits,
+      dental benefits, and an OTC allowance.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_011_turn_02
+    source_row: 24
+    source_question_number: 23
+    question: Why should I stay in this plan instead of switching with plan Anthem Medicare Advantage
+      (HMO-POS)?
+    reference_answer: I can help you compare plans, but the best choice depends on your healthcare needs,
+      doctors, prescriptions, and budget. Some features of this plan include a $0 monthly premium, a $3,000
+      in-network out-of-pocket maximum, prescription drug coverage, hearing benefits, vision benefits,
+      dental benefits, and an OTC allowance.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_012
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_012_turn_01
+    source_row: 25
+    source_question_number: 24
+    question: I am turning 65 in August, when should I enroll to Medicare
+    reference_answer: If you turn 65 in August, your Initial Enrollment Period runs from May through November.
+      The safest time to enroll is before August so your Medicare coverage can start on time and you have
+      time to choose a plan.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_012_turn_02
+    source_row: 26
+    source_question_number: 25
+    question: I am turning 65 in August, when should I enroll to Medicare
+    reference_answer: If you turn 65 in August, your Initial Enrollment Period runs from May through November.
+      The safest time to enroll is before August so your Medicare coverage can start on time and you have
+      time to choose a plan.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_013
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: needs_review
+  turns:
+  - id: external_medicare_013_turn_01
+    source_row: 27
+    source_question_number: 26
+    question: Which plan has the best transportation coverage
+    reference_answer: I wouldn’t call one plan “best” without first checking which plans you qualify for.
+      For this plan, Anthem I CareMore Premium Savings includes 10 one-way routine rides a year, limited
+      to 60 miles. The clearest way to compare transportation is to open each plan’s details and look
+      at the number of rides, mileage limits, and trip rules.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_013_turn_02
+    source_row: 28
+    source_question_number: 27
+    question: Compare my current plan and the Anthem I CareMore Premium Savings which have the best transportation
+      coverage
+    reference_answer: null
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: needs_review
+    prompt_overlap: []
+- id: external_medicare_014
+  market: Medicare
+  context: medicare_member_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_014_turn_01
+    source_row: 29
+    source_question_number: 28
+    question: What’s the difference between HMO and HMO-POS?
+    reference_answer: An HMO-POS is basically an HMO with limited out-of-network access for certain services.
+      With this plan, you should still expect to use in-network doctors and a network PCP for most of
+      your care, because out-of-network coverage is limited and can cost more.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_014_turn_02
+    source_row: 30
+    source_question_number: 29
+    question: Do Anthem Select and Anthem Medicare Advantage have premiums?
+    reference_answer: Yes — on this page, both Anthem Select and Anthem Medicare Advantage show $0 monthly
+      plan premiums. You’d still keep paying your Medicare Part B premium.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+    context: medicare_prospect
+  - id: external_medicare_014_turn_03
+    source_row: 31
+    source_question_number: 30
+    question: Are emergency services covered in all plans?
+    reference_answer: Yes — emergency care is covered across Medicare Advantage plans. What usually changes
+      from plan to plan is the copay, not whether emergency care is covered. For Anthem I CareMore Premium
+      Savings, the copay is waived if you’re admitted to the hospital within 24 hours, and the plan also
+      includes limited worldwide emergency and urgent care coverage.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+    context: medicare_prospect
+  - id: external_medicare_014_turn_04
+    source_row: 32
+    source_question_number: 31
+    question: What’s the difference between Anthem Select and CareMore Premium Savings?
+    reference_answer: At a glance, both plans show a $0 monthly premium. Anthem Select shows an $800 in-network
+      out-of-pocket maximum, while Anthem I CareMore Premium Savings shows $1,000. CareMore Premium Savings
+      also shows extras like a Part B premium reduction, transportation, OTC, meals, and SilverSneakers
+      in the plan details.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+    context: medicare_prospect
+- id: external_medicare_015
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_015_turn_01
+    source_row: 33
+    source_question_number: 32
+    question: Which plans offer extra benefits like meals or fitness programs?
+    reference_answer: The easiest way to spot those extras is in each plan’s details. On the plans shown
+      here, the I CareMore plans highlight fitness benefits on the plan cards. For Anthem I CareMore Premium
+      Savings specifically, the plan details also list meals, transportation, OTC, and SilverSneakers.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_015_turn_02
+    source_row: 34
+    source_question_number: 33
+    question: Which plan is best for me?
+    reference_answer: I can help you narrow it down, but I can’t recommend a plan. The best fit usually
+      depends on whether your doctors are in network, your prescriptions are covered at a good cost, your
+      budget, and which extra benefits matter most. The doctor and drug lookup links on this page are
+      the fastest way to compare that.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_015_turn_03
+    source_row: 35
+    source_question_number: 34
+    question: I have diabetes and heart issues—what plan should I choose?
+    reference_answer: I can’t choose a plan for you based on your health, but with diabetes and heart
+      issues I’d pay close attention to your specialists, prescription coverage, diabetic supplies, and
+      total out-of-pocket costs. If you’re eligible, a chronic condition plan may also be worth exploring.
+      The best next step is to check your doctors and medications in the lookup tools on this page.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_015_turn_04
+    source_row: 36
+    source_question_number: 35
+    question: Is my medication Ozempic covered and which plan is best for it?
+    reference_answer: I can help you check Ozempic, but I can’t tell you which plan is best. Click 'Your
+      Prescriptions' or use 'Find Your Covered Drugs,' then enter Ozempic, the dose, quantity, and your
+      pharmacy. That will show whether it’s covered, what tier it’s on, and your estimated cost in each
+      plan.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_015_turn_05
+    source_row: 37
+    source_question_number: 36
+    question: Which plan should I pick if I want to keep my doctor Dr. Smith?
+    reference_answer: The best next step is to check whether Dr. Smith is in network for each plan. Click
+      'Your Doctors' or 'Add Your Doctor List,' search the doctor, and then compare the plans that show
+      them as in-network. I can explain the differences, but I can’t choose the plan for you.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_016
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_016_turn_01
+    source_row: 38
+    source_question_number: 37
+    question: I want the cheapest plan overall—what should I choose?
+    reference_answer: Several plans on this page have $0 monthly premiums, so the cheapest overall plan
+      isn’t always the one with the lowest premium. Total cost usually comes down to your doctors, prescriptions,
+      copays, and the plan’s out-of-pocket maximum. Checking those together will give you the most accurate
+      answer.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_016_turn_02
+    source_row: 39
+    source_question_number: 38
+    question: I think I qualify for Medicaid—should I get the Dual plan?
+    reference_answer: A Dual plan is designed for people who qualify for both Medicare and Medicaid. The
+      first step is to confirm your Medicaid eligibility, then compare the Dual plans available to you.
+      I can help explain how Dual plans work, and a licensed agent or your state Medicaid office can help
+      confirm eligibility.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_017
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_017_turn_01
+    source_row: 40
+    source_question_number: 39
+    question: What should I pick?
+    reference_answer: I can help you compare, but I can’t pick a plan for you. A good way to narrow it
+      down is to keep the plans that include your doctors, cover your prescriptions well, fit your budget,
+      and have the extra benefits you care about most.
+    source_intent: broad_plans
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_017_turn_02
+    source_row: 41
+    source_question_number: 40
+    question: What should I pick?
+    reference_answer: I can help you compare, but I can’t pick a plan for you. A good way to narrow it
+      down is to keep the plans that include your doctors, cover your prescriptions well, fit your budget,
+      and have the extra benefits you care about most.
+    source_intent: broad_plans
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_018
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_018_turn_01
+    source_row: 42
+    source_question_number: 41
+    question: Is my primary care doctor in this plan’s network?
+    reference_answer: The fastest way to check is to click 'Your Doctors' or 'Add Your Doctor List' and
+      search your PCP. This plan uses a network PCP, so it’s important to make sure your doctor shows
+      as in-network for Anthem I CareMore Premium Savings.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_018_turn_02
+    source_row: 43
+    source_question_number: 42
+    question: Is my primary care doctor in this plan’s network with plan Anthem Prime (HMO-POS)?
+    reference_answer: The fastest way to check is to click 'Your Doctors' or 'Add Your Doctor List' and
+      search your PCP. This plan uses a network PCP, so it’s important to make sure your doctor shows
+      as in-network for Anthem I CareMore Premium Savings.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_019
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_019_turn_01
+    source_row: 44
+    source_question_number: 43
+    question: Do I need a referral to see a specialist?
+    reference_answer: Often, yes. Specialist services on this plan may require a referral from your doctor
+      or PCP, so starting with your PCP is usually the safest path.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_019_turn_02
+    source_row: 45
+    source_question_number: 44
+    question: Do I need a referral to see a specialist with plan Anthem Prime (HMO-POS)?
+    reference_answer: Often, yes. Specialist services on this plan may require a referral from your doctor
+      or PCP, so starting with your PCP is usually the safest path.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_020
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_020_turn_01
+    source_row: 46
+    source_question_number: 45
+    question: Can I see providers outside the network at all with this plan?
+    reference_answer: Only in limited situations. This plan is built mainly around in-network care. Out-of-network
+      coverage is generally for certain services, emergencies, urgently needed care, or some non-Medicare
+      dental services, and your costs can be higher.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_020_turn_02
+    source_row: 47
+    source_question_number: 46
+    question: Can I see providers outside the network at all with this plan with plan Anthem Prime (HMO-POS)?
+    reference_answer: Only in limited situations. This plan is built mainly around in-network care. Out-of-network
+      coverage is generally for certain services, emergencies, urgently needed care, or some non-Medicare
+      dental services, and your costs can be higher.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_021
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_021_turn_01
+    source_row: 48
+    source_question_number: 47
+    question: What would I pay to see a primary care doctor?
+    reference_answer: In-network primary care visits are $0 copay.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_021_turn_02
+    source_row: 49
+    source_question_number: 48
+    question: What would I pay to see a primary care doctor with plan Anthem Prime (HMO-POS)?
+    reference_answer: In-network primary care visits are $0 copay.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_022
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_022_turn_01
+    source_row: 50
+    source_question_number: 49
+    question: What would I pay to see a specialist?
+    reference_answer: In-network specialist visits have a $10 copay.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_022_turn_02
+    source_row: 51
+    source_question_number: 50
+    question: What would I pay to see a specialist with plan Anthem Prime (HMO-POS)?
+    reference_answer: In-network specialist visits have a $10 copay.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_023
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_023_turn_01
+    source_row: 52
+    source_question_number: 51
+    question: How much is an urgent care visit with this plan?
+    reference_answer: Urgently needed services have a $35 copay.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_023_turn_02
+    source_row: 53
+    source_question_number: 52
+    question: How much is an urgent care visit with this plan with plan Anthem Prime (HMO-POS)?
+    reference_answer: Urgently needed services have a $35 copay.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_024
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_024_turn_01
+    source_row: 54
+    source_question_number: 53
+    question: How much would I pay if I go to the emergency room?
+    reference_answer: Emergency care has a $150 copay. If you are admitted to the hospital within 24 hours,
+      you do not have to pay your share of the emergency care cost.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_024_turn_02
+    source_row: 55
+    source_question_number: 54
+    question: How much would I pay if I go to the emergency room with plan Anthem Prime (HMO-POS)?
+    reference_answer: Emergency care has a $150 copay. If you are admitted to the hospital within 24 hours,
+      you do not have to pay your share of the emergency care cost.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_025
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_025_turn_01
+    source_row: 56
+    source_question_number: 55
+    question: Is there a copay for hospital stays?
+    reference_answer: Yes. For inpatient hospital stays, you pay $300 per day for days 1–4 of each admission
+      and $0 per day for days 5–90. The plan covers an unlimited number of inpatient hospital days.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_025_turn_02
+    source_row: 57
+    source_question_number: 56
+    question: Is there a copay for hospital stays with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. For inpatient hospital stays, you pay $300 per day for days 1–4 of each admission
+      and $0 per day for days 5–90. The plan covers an unlimited number of inpatient hospital days.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_026
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_026_turn_01
+    source_row: 58
+    source_question_number: 57
+    question: What does this plan cover for lab work and blood tests?
+    reference_answer: Lab services are covered at $0 copay when you use providers or hospital outpatient
+      facilities in the plan's network.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_026_turn_02
+    source_row: 59
+    source_question_number: 58
+    question: What does this plan cover for lab work and blood tests with plan Anthem Prime (HMO-POS)?
+    reference_answer: Lab services are covered at $0 copay when you use providers or hospital outpatient
+      facilities in the plan's network.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_027
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_027_turn_01
+    source_row: 60
+    source_question_number: 59
+    question: Are X-rays, MRIs, and CT scans covered?
+    reference_answer: Yes. The plan covers diagnostic imaging services, including X-rays, CT scans, MRIs,
+      MRAs, and PET scans. In-network CT scans, MRIs, MRAs, and PET scans are covered at 20% coinsurance,
+      while outpatient X-rays are covered at $0 copay.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_027_turn_02
+    source_row: 61
+    source_question_number: 60
+    question: Are X-rays, MRIs, and CT scans covered with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. The plan covers diagnostic imaging services, including X-rays, CT scans, MRIs,
+      MRAs, and PET scans. In-network CT scans, MRIs, MRAs, and PET scans are covered at 20% coinsurance,
+      while outpatient X-rays are covered at $0 copay.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_028
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_028_turn_01
+    source_row: 62
+    source_question_number: 61
+    question: Does this plan cover routine dental services with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. The plan includes preventive dental benefits, including one oral exam and one
+      cleaning each year at no cost when using in-network dentists.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_029
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_029_turn_01
+    source_row: 63
+    source_question_number: 62
+    question: Does this plan cover routine dental services?
+    reference_answer: Yes. The plan includes preventive dental benefits, including one oral exam and one
+      cleaning each year at no cost when using in-network dentists.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_030
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_030_turn_01
+    source_row: 64
+    source_question_number: 63
+    question: Is there a dental allowance, and how does it work?
+    reference_answer: The base plan includes preventive dental benefits. In addition, optional supplemental
+      dental packages are available for an additional monthly premium and provide annual dental benefit
+      maximums ranging from $500 to $2,000, depending on the package selected.
+    source_intent: broad_plans
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_030_turn_02
+    source_row: 65
+    source_question_number: 64
+    question: Does this plan include vision coverage for eye exams and glasses?
+    reference_answer: Yes. The plan covers one routine eye exam each year at no cost and provides up to
+      $250 annually for eyeglasses or contact lenses.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_030_turn_03
+    source_row: 66
+    source_question_number: 65
+    question: Does this plan include vision coverage for eye exams and glasses with plan Anthem Prime
+      (HMO-POS)?
+    reference_answer: Yes. The plan covers one routine eye exam each year at no cost and provides up to
+      $250 annually for eyeglasses or contact lenses.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_031
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_031_turn_01
+    source_row: 67
+    source_question_number: 66
+    question: How much do hearing aids cost with this plan with plan Anthem Prime (HMO-POS)?
+    reference_answer: The plan includes hearing aid benefits. You receive either up to $300 annually for
+      over-the-counter hearing aids or up to $3,000 annually for prescribed hearing aids, with no copay
+      up to those benefit limits.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_031_turn_02
+    source_row: 68
+    source_question_number: 67
+    question: How much do hearing aids cost with this plan?
+    reference_answer: The plan includes hearing aid benefits. You receive either up to $300 annually for
+      over-the-counter hearing aids or up to $3,000 annually for prescribed hearing aids, with no copay
+      up to those benefit limits.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_032
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_032_turn_01
+    source_row: 69
+    source_question_number: 68
+    question: Does this plan include an over-the-counter allowance?
+    reference_answer: Yes. The plan provides $32 every quarter on a Benefits Mastercard® Prepaid Card
+      for eligible over-the-counter health and wellness products. Unused amounts expire at the end of
+      each quarter.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_032_turn_02
+    source_row: 70
+    source_question_number: 69
+    question: Does this plan include an over-the-counter allowance with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. The plan provides $32 every quarter on a Benefits Mastercard® Prepaid Card
+      for eligible over-the-counter health and wellness products. Unused amounts expire at the end of
+      each quarter.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_033
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_033_turn_01
+    source_row: 71
+    source_question_number: 70
+    question: Are fitness benefits like SilverSneakers or gym memberships included?
+    reference_answer: The Summary of Benefits does not mention SilverSneakers, gym memberships, or fitness
+      benefits. Based on the document, I cannot confirm that this benefit is included.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_033_turn_02
+    source_row: 72
+    source_question_number: 71
+    question: Are fitness benefits like SilverSneakers or gym memberships included with plan Anthem Prime
+      (HMO-POS)?
+    reference_answer: The Summary of Benefits does not mention SilverSneakers, gym memberships, or fitness
+      benefits. Based on the document, I cannot confirm that this benefit is included.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_034
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_034_turn_01
+    source_row: 73
+    source_question_number: 72
+    question: Does this plan offer meal benefits after a hospital stay?
+    reference_answer: The Summary of Benefits does not list a meal benefit after a hospital or skilled
+      nursing facility stay. Based on the document, I cannot confirm that this benefit is included.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_034_turn_02
+    source_row: 74
+    source_question_number: 73
+    question: Does this plan offer meal benefits after a hospital stay with plan Anthem Prime (HMO-POS)?
+    reference_answer: The Summary of Benefits does not list a meal benefit after a hospital or skilled
+      nursing facility stay. Based on the document, I cannot confirm that this benefit is included.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_035
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_035_turn_01
+    source_row: 75
+    source_question_number: 74
+    question: How many transportation rides does this plan include?
+    reference_answer: Transportation is listed as Not Covered under this plan.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_035_turn_02
+    source_row: 76
+    source_question_number: 75
+    question: How many transportation rides does this plan include with plan Anthem Prime (HMO-POS)?
+    reference_answer: Transportation is listed as Not Covered under this plan.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_036
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_036_turn_01
+    source_row: 77
+    source_question_number: 76
+    question: Can I use this plan when I travel outside my home area?
+    reference_answer: Yes. Emergency and urgently needed care are covered when traveling. The plan also
+      includes worldwide emergency and urgent care coverage, including emergency transportation, for trips
+      outside the United States lasting less than six months, up to a $100,000 annual limit.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_036_turn_02
+    source_row: 78
+    source_question_number: 77
+    question: Can I use this plan when I travel outside my home area with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. Emergency and urgently needed care are covered when traveling. The plan also
+      includes worldwide emergency and urgent care coverage, including emergency transportation, for trips
+      outside the United States lasting less than six months, up to a $100,000 annual limit.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_037
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_037_turn_01
+    source_row: 79
+    source_question_number: 78
+    question: Am I covered for urgent care when I’m out of town?
+    reference_answer: Yes. Urgently needed care is covered, and this plan also includes limited worldwide
+      urgent and emergency coverage for trips outside the U.S. of less than six months.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_037_turn_02
+    source_row: 80
+    source_question_number: 79
+    question: Am I covered for urgent care when I’m out of town with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. Urgently needed care is covered, and this plan also includes limited worldwide
+      urgent and emergency coverage for trips outside the U.S. of less than six months.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_038
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_038_turn_01
+    source_row: 81
+    source_question_number: 80
+    question: Do I need prior authorization for certain services or procedures?
+    reference_answer: Yes. Some services on this plan may need prior authorization, so it’s a good idea
+      to check ahead for certain procedures, equipment, or specialty services.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_038_turn_02
+    source_row: 82
+    source_question_number: 81
+    question: Do I need prior authorization for certain services or procedures with plan Anthem Prime
+      (HMO-POS)?
+    reference_answer: Yes. Some services on this plan may need prior authorization, so it’s a good idea
+      to check ahead for certain procedures, equipment, or specialty services.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_039
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_039_turn_01
+    source_row: 83
+    source_question_number: 82
+    question: How do I find out if my prescriptions need prior authorization?
+    reference_answer: Use the prescription lookup and enter your drug, dose, quantity, and pharmacy. That
+      will show whether the drug is covered and if rules like prior authorization, step therapy, or quantity
+      limits apply.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_039_turn_02
+    source_row: 84
+    source_question_number: 83
+    question: How do I find out if my prescriptions need prior authorization with plan Anthem Prime (HMO-POS)?
+    reference_answer: Use the prescription lookup and enter your drug, dose, quantity, and pharmacy. That
+      will show whether the drug is covered and if rules like prior authorization, step therapy, or quantity
+      limits apply.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_040
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_040_turn_01
+    source_row: 85
+    source_question_number: 84
+    question: Can I use my local pharmacy with this plan?
+    reference_answer: Maybe — this plan includes many pharmacies, but it’s best to check first. Use “Find
+      a Pharmacy” to confirm whether your pharmacy is in network and whether it’s preferred, since that
+      can affect what you pay.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_040_turn_02
+    source_row: 86
+    source_question_number: 85
+    question: Can I use my local pharmacy with this plan with plan Anthem Prime (HMO-POS)?
+    reference_answer: Maybe — this plan includes many pharmacies, but it’s best to check first. Use “Find
+      a Pharmacy” to confirm whether your pharmacy is in network and whether it’s preferred, since that
+      can affect what you pay.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_041
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_041_turn_01
+    source_row: 87
+    source_question_number: 86
+    question: How do I check whether all of my drugs are covered before I enroll?
+    reference_answer: Use “Find Your Covered Drugs” or add your prescriptions in the drug lookup. Enter
+      each medication, dose, quantity, and pharmacy to see whether it’s covered, what tier it’s on, and
+      your estimated cost.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_041_turn_02
+    source_row: 88
+    source_question_number: 87
+    question: How do I check whether all of my drugs are covered before I enroll with plan Anthem Prime
+      (HMO-POS)?
+    reference_answer: Use “Find Your Covered Drugs” or add your prescriptions in the drug lookup. Enter
+      each medication, dose, quantity, and pharmacy to see whether it’s covered, what tier it’s on, and
+      your estimated cost.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_042
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_042_turn_01
+    source_row: 89
+    source_question_number: 88
+    question: What happens if one of my doctors leaves the network after I join?
+    reference_answer: If a doctor leaves the network, the plan will notify affected members and help you
+      choose a new in-network provider. If you’re in active treatment, you can also ask about continuing
+      medically necessary care.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_042_turn_02
+    source_row: 90
+    source_question_number: 89
+    question: What happens if one of my doctors leaves the network after I join with plan Anthem Prime
+      (HMO-POS)?
+    reference_answer: If a doctor leaves the network, the plan will notify affected members and help you
+      choose a new in-network provider. If you’re in active treatment, you can also ask about continuing
+      medically necessary care.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_043
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_043_turn_01
+    source_row: 91
+    source_question_number: 90
+    question: Can I change plans later if this one doesn’t work for me?
+    reference_answer: Possibly. Medicare only lets you change plans at certain times or in certain situations,
+      so it depends on when you want to switch and whether you qualify for a special enrollment period.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_043_turn_02
+    source_row: 92
+    source_question_number: 91
+    question: Can I change plans later if this one doesn’t work for me with plan Anthem Prime (HMO-POS)?
+    reference_answer: Possibly. Medicare only lets you change plans at certain times or in certain situations,
+      so it depends on when you want to switch and whether you qualify for a special enrollment period.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_044
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_044_turn_01
+    source_row: 93
+    source_question_number: 92
+    question: When would my coverage start if I enroll today?
+    reference_answer: That depends on your enrollment situation and the effective date tied to your application.
+      If you tell me whether you’re new to Medicare, changing plans, or enrolling after a move or other
+      life event, I can explain the timing more clearly.
+    source_intent: generic_info
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_045
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_045_turn_01
+    source_row: 94
+    source_question_number: 93
+    question: Is this plan a good fit if I go to the doctor a lot?
+    reference_answer: It may be worth a closer look because primary care visits have no copay, many specialist
+      visits are low-cost, and the plan has a low in-network out-of-pocket maximum. The bigger question
+      is whether your doctors and prescriptions fit the plan well.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_045_turn_02
+    source_row: 95
+    source_question_number: 94
+    question: Is this plan a good fit if I go to the doctor a lot with plan Anthem Prime (HMO-POS)?
+    reference_answer: It may be worth a closer look because primary care visits have no copay, many specialist
+      visits are low-cost, and the plan has a low in-network out-of-pocket maximum. The bigger question
+      is whether your doctors and prescriptions fit the plan well.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_046
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_046_turn_01
+    source_row: 96
+    source_question_number: 95
+    question: Is this plan a good fit if I mostly want low monthly costs?
+    reference_answer: It may appeal if low monthly cost is a priority, since it has no monthly plan premium
+      and includes a Part B premium reduction. Just remember that your total cost also depends on copays,
+      prescriptions, and how often you use care.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_046_turn_02
+    source_row: 97
+    source_question_number: 96
+    question: Is this plan a good fit if I mostly want low monthly costs with plan Anthem Prime (HMO-POS)?
+    reference_answer: It may appeal if low monthly cost is a priority, since it has no monthly plan premium
+      and includes a Part B premium reduction. Just remember that your total cost also depends on copays,
+      prescriptions, and how often you use care.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_047
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: excluded_prompt_overlap
+  turns:
+  - id: external_medicare_047_turn_01
+    source_row: 98
+    source_question_number: 97
+    question: What are the top reasons someone would choose this plan over another one?
+    reference_answer: Common reasons someone might consider it are no monthly plan premium, a Part B premium
+      reduction, a low in-network out-of-pocket maximum, built-in drug coverage, and extras like dental,
+      vision, hearing, OTC, meals, transportation, and SilverSneakers.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: excluded_prompt_overlap
+    prompt_overlap:
+    - main
+  - id: external_medicare_047_turn_02
+    source_row: 99
+    source_question_number: 98
+    question: What are the top reasons someone would choose this plan over another one with plan Anthem
+      Prime (HMO-POS)?
+    reference_answer: Common reasons someone might consider it are no monthly plan premium, a Part B premium
+      reduction, a low in-network out-of-pocket maximum, built-in drug coverage, and extras like dental,
+      vision, hearing, OTC, meals, transportation, and SilverSneakers.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_048
+  market: Medicare
+  context: medicare_prospect
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_048_turn_01
+    source_row: 100
+    source_question_number: 99
+    question: Does this plan include a Part B premium reduction with plan Anthem Prime (HMO-POS)?
+    reference_answer: Yes. This plan includes a $62.10 monthly Part B premium reduction. You still need
+      to stay enrolled in Medicare Part B, but this can lower what you pay toward that premium.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_048_turn_02
+    source_row: 101
+    source_question_number: 100
+    question: Does this plan include a Part B premium reduction?
+    reference_answer: Yes. This plan includes a $62.10 monthly Part B premium reduction. You still need
+      to stay enrolled in Medicare Part B, but this can lower what you pay toward that premium.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_049
+  market: Medicare
+  context: medicare_prospect_current_plan
+  evaluation_status: eligible
+  turns:
+  - id: external_medicare_049_turn_01
+    source_row: 102
+    source_question_number: 101
+    question: Does my current plan cover vision benefits?
+    reference_answer: To answer your question better, if you are an existing member, please login to planmatch.anthem.com
+      and ask yor question again.
+    source_intent: specific_plan
+    source_rag_expected: false
+    evaluation_status: eligible
+    prompt_overlap: []
+  - id: external_medicare_049_turn_02
+    source_row: 103
+    source_question_number: 102
+    question: Does my current plan cover vision benefits with plan Anthem Medicare Advantage (HMO-POS)?
+    reference_answer: To answer your question better, if you are an existing member, please login to planmatch.anthem.com
+      and ask yor question again.
+    source_intent: specific_plan
+    source_rag_expected: true
+    evaluation_status: eligible
+    prompt_overlap: []
+- id: external_medicare_050
+  market: Medicare
+  context: medicare_prospect_current_plan
+  evaluation_status: needs_review
+  turns:
+  - id: external_medicare_050_turn_01
+    source_row: 104
+    source_question_number: 103
+    question: Can I talk to a live agent?
+    reference_answer: null
+    source_intent: null
+    source_rag_expected: false
+    evaluation_status: needs_review
+    prompt_overlap: []

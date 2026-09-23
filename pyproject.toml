@@ -1,0 +1,71 @@
+[project]
+name = "shopper-agent"
+version = "0.1.0"
+description = "watsonx Orchestrate agent architecture for the Shopper Broker solution."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "ibm-watsonx-orchestrate==2.15.0",
+    "httpx==0.28.1",
+    "requests==2.34.2",
+    "pydantic==2.13.5",
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "pytest-asyncio==1.4.0",
+    "openpyxl==3.1.5",
+    "pyyaml==6.0.3",
+    "ruff==0.16.4",
+    "pre-commit==4.6.2",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "evaluation", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# Prompt and tool-description newlines are model input, so prose stays on long physical lines.
+"src/shared/classifier.py" = ["E501"]
+"src/shared/guardrails.py" = ["E501"]
+"src/shared/response_composer.py" = ["E501"]
+"src/tools/general_search.py" = ["E501"]
+"src/tools/plan_search.py" = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests/"]
+pythonpath = [".", "src"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+# Exclude e2e and evaluation tests that depend on the evaluation module
+norecursedirs = ["tests/e2e", "tests/evaluation"]
+markers = [
+    "e2e: opt-in functional workflows against running WXO and Shopper Assistant API services",
+]
+addopts = [
+    "--strict-markers",
+    "--tb=short",
+    "--disable-warnings",
+    "-v",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]

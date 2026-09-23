@@ -1,0 +1,448 @@
+schema_version: 1
+purpose: Local retrieval-quality evaluation against the read-only development Milvus corpus
+policy:
+  application_targets: loopback_only
+  milvus: existing_development_collections_read_only
+  gold_definition: Manually curated query intent and semantic facts; generated prose is not an oracle
+  scoring_note: Automated concept recall is diagnostic and never substitutes for evidence review
+statistics:
+  expanded_cases: 157
+  release_gate_cases: 60
+  categories:
+    precise_costs: 50
+    coverage_limits: 30
+    comparisons: 20
+    overview: 20
+    uncertainty: 15
+    paraphrase_context: 15
+    plan_level_facts: 7
+
+contexts:
+  individual:
+    market: IOLS
+    effective_year: 2026
+    language: en
+    state_code: CA
+    exchange_indicator: "Off"
+    user_type: prospect
+    default_plan_ids: [8XX4]
+    comparison_plan_ids: [8XX4, 8XWE]
+    available_plans:
+      - {plan_id: 8XX4, plan_name: Anthem Bronze 60 D EPO}
+      - {plan_id: 8XWE, plan_name: Anthem Silver 70 Off Exchange EPO}
+  medicare:
+    market: MOLS
+    effective_year: 2026
+    language: en
+    state_code: CA
+    user_type: prospect
+    default_plan_ids: [H4161-007-000]
+    comparison_plan_ids: [H4161-007-000, H0544-063-000]
+    available_plans:
+      - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+      - {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+
+groups:
+  - id: cost
+    category: precise_costs
+    tier: release_gate
+    contexts: [individual, medicare]
+    plan_selection: default_plan_ids
+    items:
+      - id: primary_care
+        query: What would I pay for an in-network primary care visit?
+        requested_facts: [copayment, coinsurance]
+        conditions: [in-network primary care visit]
+        lexical_terms: [primary care physician, PCP, office visit, copay]
+        expected_concepts: [[primary care, PCP], [copay, copayment, coinsurance]]
+      - id: specialist
+        query: What would I pay to see an in-network specialist?
+        requested_facts: [copayment, coinsurance]
+        conditions: [in-network specialist visit]
+        lexical_terms: [specialist visit, specialist copay]
+        expected_concepts: [[specialist], [copay, copayment, coinsurance]]
+      - id: urgent_care
+        query: How much does an urgent care center visit cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [urgent care center visit]
+        lexical_terms: [urgent care, urgently needed services, copay]
+        expected_concepts: [[urgent care, urgently needed], [copay, copayment, coinsurance]]
+      - id: emergency_room
+        query: What is the emergency room cost and when is it waived?
+        requested_facts: [copayment, coinsurance, waiver rule]
+        conditions: [emergency room visit, hospital admission]
+        lexical_terms: [emergency care, emergency room, waived if admitted]
+        expected_concepts: [[emergency], [copay, copayment, coinsurance], [admitted, admission, waived]]
+      - id: inpatient_hospital
+        query: What do I pay for an inpatient hospital stay?
+        requested_facts: [daily copayment, coinsurance]
+        conditions: [inpatient admission]
+        lexical_terms: [inpatient hospital, hospital stay, per day]
+        expected_concepts: [[inpatient, hospital stay], [copay, copayment, coinsurance, per day]]
+      - id: outpatient_hospital
+        query: What is the member cost for outpatient hospital services?
+        requested_facts: [copayment, coinsurance]
+        conditions: [outpatient hospital]
+        lexical_terms: [outpatient hospital, outpatient surgery, facility fee]
+        expected_concepts: [[outpatient], [copay, copayment, coinsurance]]
+      - id: ambulance
+        query: How much would I pay for an ambulance?
+        requested_facts: [copayment, coinsurance]
+        conditions: [ground ambulance]
+        lexical_terms: [ambulance services, emergency transportation]
+        expected_concepts: [[ambulance], [copay, copayment, coinsurance]]
+      - id: diagnostic_xray
+        query: What do diagnostic X-rays cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [diagnostic X-ray]
+        lexical_terms: [diagnostic radiology, X-ray, imaging]
+        expected_concepts: [[x ray, radiology, imaging], [copay, copayment, coinsurance]]
+      - id: advanced_imaging
+        query: What would I pay for an MRI or CT scan?
+        requested_facts: [copayment, coinsurance]
+        conditions: [MRI, CT scan]
+        lexical_terms: [MRI, MRA, CT, diagnostic imaging]
+        expected_concepts: [[MRI, CT, imaging], [copay, copayment, coinsurance]]
+      - id: lab
+        query: What is the cost for outpatient laboratory tests?
+        requested_facts: [copayment, coinsurance]
+        conditions: [outpatient laboratory]
+        lexical_terms: [laboratory services, lab tests, diagnostic tests]
+        expected_concepts: [[laboratory, lab test], [copay, copayment, coinsurance]]
+      - id: physical_therapy
+        query: What do I pay for physical therapy visits?
+        requested_facts: [copayment, coinsurance]
+        conditions: [physical therapy visit]
+        lexical_terms: [physical therapy, rehabilitation, therapy visit]
+        expected_concepts: [[physical therapy, rehabilitation], [copay, copayment, coinsurance]]
+      - id: chiropractic
+        query: What is the member cost for covered chiropractic care?
+        requested_facts: [copayment, coinsurance]
+        conditions: [covered chiropractic service]
+        lexical_terms: [chiropractic, spinal manipulation, subluxation]
+        expected_concepts: [[chiropractic, spinal manipulation], [copay, copayment, coinsurance]]
+      - id: mental_health_outpatient
+        query: What do outpatient mental health visits cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [outpatient mental health]
+        lexical_terms: [mental health, behavioral health, individual therapy]
+        expected_concepts: [[mental health, behavioral health], [copay, copayment, coinsurance]]
+      - id: substance_use_outpatient
+        query: What do outpatient substance use treatment visits cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [outpatient substance use treatment]
+        lexical_terms: [substance use disorder, outpatient treatment]
+        expected_concepts: [[substance use, substance abuse], [copay, copayment, coinsurance]]
+      - id: skilled_nursing
+        query: What would I pay for a skilled nursing facility stay?
+        requested_facts: [daily copayment, coinsurance]
+        conditions: [skilled nursing facility]
+        lexical_terms: [skilled nursing facility, SNF, per day]
+        expected_concepts: [[skilled nursing, SNF], [copay, copayment, coinsurance, per day]]
+      - id: home_health
+        query: What member cost applies to home health care?
+        requested_facts: [copayment, coinsurance]
+        conditions: [covered home health]
+        lexical_terms: [home health agency, home health care]
+        expected_concepts: [[home health], [copay, copayment, coinsurance, no cost]]
+      - id: durable_equipment
+        query: How much do I pay for durable medical equipment?
+        requested_facts: [copayment, coinsurance]
+        conditions: [covered equipment]
+        lexical_terms: [durable medical equipment, DME, prosthetics]
+        expected_concepts: [[durable medical equipment, DME], [copay, copayment, coinsurance]]
+      - id: generic_drugs
+        query: What do preferred generic prescription drugs cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [preferred generic drug, retail pharmacy]
+        lexical_terms: [Tier 1, preferred generic, retail pharmacy]
+        expected_concepts: [[generic, Tier 1], [copay, copayment, coinsurance]]
+      - id: brand_drugs
+        query: What do preferred brand prescription drugs cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [preferred brand drug, retail pharmacy]
+        lexical_terms: [Tier 2, preferred brand, retail pharmacy]
+        expected_concepts: [[preferred brand, Tier 2], [copay, copayment, coinsurance]]
+      - id: specialty_drugs
+        query: What do specialty prescription drugs cost?
+        requested_facts: [copayment, coinsurance]
+        conditions: [specialty drug]
+        lexical_terms: [specialty tier, Tier 5, specialty pharmacy]
+        expected_concepts: [[specialty drug, specialty tier, Tier 5], [copay, copayment, coinsurance]]
+      - id: routine_vision
+        query: What do routine eye exams cost?
+        requested_facts: [copayment, frequency]
+        conditions: [routine eye exam]
+        lexical_terms: [routine vision, eye exam, optometry]
+        expected_concepts: [[eye exam, routine vision], [copay, copayment, no cost]]
+      - id: hearing_exam
+        query: What is the cost for a routine hearing exam?
+        requested_facts: [copayment, frequency]
+        conditions: [routine hearing exam]
+        lexical_terms: [hearing exam, hearing evaluation, audiology]
+        expected_concepts: [[hearing exam, audiology], [copay, copayment, no cost]]
+      - id: dental_exam
+        query: What do preventive dental exams and cleanings cost?
+        requested_facts: [copayment, frequency]
+        conditions: [preventive dental]
+        lexical_terms: [oral exam, prophylaxis, cleaning, preventive dental]
+        expected_concepts: [[dental, oral exam, cleaning], [copay, copayment, no cost]]
+      - id: annual_deductible
+        query: What annual medical deductible applies?
+        requested_facts: [deductible amount]
+        conditions: [annual medical services]
+        lexical_terms: [annual deductible, medical deductible]
+        expected_concepts: [[deductible], [annual, calendar year]]
+      - id: out_of_pocket_max
+        query: What is the annual out-of-pocket maximum for covered medical services?
+        requested_facts: [out-of-pocket maximum]
+        conditions: [covered medical services]
+        lexical_terms: [maximum out-of-pocket, MOOP, yearly limit]
+        expected_concepts: [[out of pocket maximum, maximum out of pocket, MOOP], [annual, year]]
+
+  - id: coverage_gate
+    category: coverage_limits
+    tier: release_gate
+    contexts: [individual, medicare]
+    plan_selection: default_plan_ids
+    items:
+      - id: emergency_coverage
+        query: Are emergency services covered outside the service area?
+        requested_facts: [coverage rule]
+        conditions: [outside service area]
+        lexical_terms: [emergency care, worldwide emergency, out of area]
+        expected_concepts: [[emergency], [out of area, outside, worldwide]]
+      - id: prior_authorization
+        query: Which services may require prior authorization?
+        requested_facts: [authorization rule]
+        lexical_terms: [prior authorization, preauthorization, approval]
+        expected_concepts: [[prior authorization, preauthorization, approval]]
+      - id: referral
+        query: Do specialist visits require a referral?
+        requested_facts: [referral requirement]
+        conditions: [specialist visit]
+        lexical_terms: [referral, primary care physician, specialist]
+        expected_concepts: [[referral], [specialist]]
+      - id: network
+        query: Must covered routine care use in-network providers?
+        requested_facts: [network rule]
+        conditions: [routine care]
+        lexical_terms: [in-network, out-of-network, participating provider]
+        expected_concepts: [[network, participating provider]]
+      - id: formulary
+        query: What happens when a prescription is not on the drug formulary?
+        requested_facts: [non-formulary rule, exception process]
+        lexical_terms: [formulary, Drug List, formulary exception]
+        expected_concepts: [[formulary, drug list], [exception, alternative, not covered]]
+
+  - id: coverage_diagnostic
+    category: coverage_limits
+    tier: diagnostic
+    contexts: [individual, medicare]
+    plan_selection: default_plan_ids
+    items:
+      - id: telehealth
+        query: Are telehealth visits covered and under what conditions?
+        requested_facts: [coverage, member cost]
+        lexical_terms: [telehealth, telemedicine, virtual care]
+        expected_concepts: [[telehealth, telemedicine, virtual care]]
+      - id: preventive
+        query: Which preventive services are covered before the deductible?
+        requested_facts: [covered services, deductible rule]
+        lexical_terms: [preventive care, preventive services, no cost sharing]
+        expected_concepts: [[preventive], [deductible, no cost]]
+      - id: maternity
+        query: What maternity and newborn care is covered?
+        requested_facts: [covered services, exclusions]
+        lexical_terms: [maternity, childbirth, newborn care]
+        expected_concepts: [[maternity, childbirth], [newborn]]
+      - id: rehabilitation_limit
+        query: Are rehabilitation visits subject to an annual visit limit?
+        requested_facts: [visit limit]
+        lexical_terms: [rehabilitation, habilitation, visit limit]
+        expected_concepts: [[rehabilitation, habilitation], [visit, limit, maximum]]
+      - id: skilled_nursing_limit
+        query: How many skilled nursing facility days are covered?
+        requested_facts: [day limit]
+        lexical_terms: [skilled nursing facility, SNF, days]
+        expected_concepts: [[skilled nursing, SNF], [days, day]]
+      - id: vision_allowance
+        query: Is there an allowance for glasses or contact lenses?
+        requested_facts: [allowance amount, frequency]
+        lexical_terms: [eyewear allowance, eyeglasses, contact lenses]
+        expected_concepts: [[eyeglasses, eyewear, contact lenses], [allowance, benefit maximum]]
+      - id: hearing_aids
+        query: Are hearing aids covered and what limits apply?
+        requested_facts: [coverage, allowance, frequency]
+        lexical_terms: [hearing aids, prescribed hearing aids, OTC hearing aids]
+        expected_concepts: [[hearing aid], [allowance, maximum, per year]]
+      - id: dental_limit
+        query: What annual limit applies to comprehensive dental services?
+        requested_facts: [annual benefit maximum]
+        lexical_terms: [comprehensive dental, annual maximum, dental allowance]
+        expected_concepts: [[dental], [annual maximum, benefit maximum, allowance]]
+      - id: travel
+        query: What care is covered while traveling outside the home area?
+        requested_facts: [covered services, geographic conditions]
+        lexical_terms: [travel coverage, worldwide, out of area]
+        expected_concepts: [[travel, worldwide, out of area], [emergency, urgent]]
+      - id: transportation
+        query: Are routine transportation rides covered and how many?
+        requested_facts: [coverage, ride limit]
+        lexical_terms: [transportation, one-way trips, routine rides]
+        expected_concepts: [[transportation, one way trip, rides]]
+
+  - id: compare
+    category: comparisons
+    tier: diagnostic
+    contexts: [individual, medicare]
+    plan_selection: comparison_plan_ids
+    items:
+      - {id: deductible, query: 'Which plan has the lower annual deductible?', requested_facts: [deductible amount], lexical_terms: [annual deductible], expected_concepts: [[deductible]]}
+      - {id: premium, query: Compare the monthly plan premiums., requested_facts: [monthly premium], lexical_terms: [monthly premium, plan premium], expected_concepts: [[premium]]}
+      - {id: moop, query: 'Which plan has the lower in-network out-of-pocket maximum?', requested_facts: [out-of-pocket maximum], conditions: [in-network], lexical_terms: [maximum out-of-pocket, MOOP], expected_concepts: [[out of pocket maximum, maximum out of pocket, MOOP]]}
+      - {id: primary_care, query: Compare the in-network primary care visit cost., requested_facts: [copayment, coinsurance], lexical_terms: [primary care, PCP, copay], expected_concepts: [[primary care, PCP], [copay, copayment, coinsurance]]}
+      - {id: specialist, query: 'Which plan has the lower specialist visit cost?', requested_facts: [copayment, coinsurance], lexical_terms: [specialist visit, specialist copay], expected_concepts: [[specialist], [copay, copayment, coinsurance]]}
+      - {id: emergency, query: Compare emergency room costs and admission waivers., requested_facts: [copayment, waiver rule], lexical_terms: [emergency room, waived if admitted], expected_concepts: [[emergency], [copay, copayment, coinsurance]]}
+      - {id: prescriptions, query: Compare generic and brand prescription drug costs., requested_facts: [generic cost, brand cost], lexical_terms: [Tier 1, Tier 2, generic, preferred brand], expected_concepts: [[generic, Tier 1], [brand, Tier 2]]}
+      - {id: vision, query: 'Which plan provides the larger eyewear allowance?', requested_facts: [eyewear allowance], lexical_terms: [eyewear allowance, glasses, contact lenses], expected_concepts: [[eyewear, eyeglasses, contact lenses], [allowance, maximum]]}
+      - {id: hearing, query: Compare hearing aid benefits and annual limits., requested_facts: [hearing aid allowance, frequency], lexical_terms: [hearing aids, annual allowance], expected_concepts: [[hearing aid], [allowance, maximum, per year]]}
+      - {id: inpatient, query: Compare inpatient hospital stay cost sharing., requested_facts: [daily copayment, coinsurance], lexical_terms: [inpatient hospital, per day], expected_concepts: [[inpatient, hospital stay], [copay, copayment, coinsurance, per day]]}
+
+  - id: overview
+    category: overview
+    tier: diagnostic
+    contexts: [individual, medicare]
+    plan_selection: default_plan_ids
+    items:
+      - id: key_benefits
+        query: Summarize the key medical benefits and member costs.
+        searches:
+          - {semantic_query: 'What major medical services are covered?', requested_facts: [covered services], lexical_terms: [medical benefits, covered services]}
+          - {semantic_query: 'What deductible and visit cost sharing applies?', requested_facts: [deductible, copayment, coinsurance], lexical_terms: [deductible, copay, coinsurance]}
+        expected_concepts: [[covered, benefits], [deductible, copay, coinsurance]]
+      - id: hospital
+        query: Give me an overview of hospital and emergency coverage and costs.
+        searches:
+          - {semantic_query: 'What inpatient and outpatient hospital services are covered?', requested_facts: [hospital coverage], lexical_terms: [inpatient hospital, outpatient hospital]}
+          - {semantic_query: 'What emergency and urgent care costs and waiver rules apply?', requested_facts: [emergency cost, urgent care cost, waiver], lexical_terms: [emergency room, urgent care, waived if admitted]}
+        expected_concepts: [[hospital, inpatient], [emergency], [urgent care, urgently needed]]
+      - id: prescriptions
+        query: Explain the prescription drug benefit, deductible, tiers, and restrictions.
+        searches:
+          - {semantic_query: 'How are prescription drug tiers and member costs structured?', requested_facts: [tier costs], lexical_terms: [Tier 1, Tier 2, Tier 3, formulary]}
+          - {semantic_query: 'What drug deductible and coverage restrictions apply?', requested_facts: [drug deductible, prior authorization], lexical_terms: [Part D deductible, prior authorization, step therapy]}
+        expected_concepts: [[prescription, drug], [tier, formulary], [deductible, prior authorization]]
+      - id: supplemental
+        query: Summarize dental, vision, and hearing benefits and limits.
+        searches:
+          - {semantic_query: 'What dental services and benefit limits are covered?', requested_facts: [dental coverage, limit], lexical_terms: [preventive dental, comprehensive dental, annual maximum]}
+          - {semantic_query: 'What routine vision services and eyewear limits are covered?', requested_facts: [vision coverage, allowance], lexical_terms: [eye exam, eyewear allowance]}
+          - {semantic_query: 'What hearing exams and hearing aid limits are covered?', requested_facts: [hearing coverage, allowance], lexical_terms: [hearing exam, hearing aids]}
+        expected_concepts: [[dental], [vision, eye exam], [hearing]]
+      - id: behavioral
+        query: Summarize mental health and substance use treatment benefits.
+        searches:
+          - {semantic_query: 'What outpatient mental health care is covered and what costs apply?', requested_facts: [coverage, member cost], lexical_terms: [mental health, behavioral health, therapy]}
+          - {semantic_query: 'What inpatient and outpatient substance use treatment is covered?', requested_facts: [coverage, member cost], lexical_terms: [substance use disorder, inpatient, outpatient]}
+        expected_concepts: [[mental health, behavioral health], [substance use, substance abuse]]
+      - id: rehabilitation
+        query: Summarize rehabilitation, therapy, and skilled nursing benefits and limits.
+        searches:
+          - {semantic_query: 'What rehabilitation and therapy services and visit limits are covered?', requested_facts: [coverage, visit limit], lexical_terms: [rehabilitation, physical therapy, occupational therapy]}
+          - {semantic_query: 'What skilled nursing care, day limits, and costs are covered?', requested_facts: [coverage, day limit, member cost], lexical_terms: [skilled nursing facility, SNF, per day]}
+        expected_concepts: [[rehabilitation, therapy], [skilled nursing, SNF]]
+      - id: preventive_diagnostic
+        query: Summarize preventive care, laboratory, and diagnostic imaging benefits.
+        searches:
+          - {semantic_query: 'What preventive services are covered without cost sharing?', requested_facts: [preventive coverage], lexical_terms: [preventive care, screening, no cost]}
+          - {semantic_query: 'What laboratory tests and diagnostic imaging are covered and what costs apply?', requested_facts: [lab cost, imaging cost], lexical_terms: [laboratory, X-ray, MRI, CT scan]}
+        expected_concepts: [[preventive], [laboratory, lab], [imaging, X ray, MRI, CT]]
+      - id: network_rules
+        query: Summarize network, referral, and prior authorization rules.
+        searches:
+          - {semantic_query: 'What in-network and out-of-network coverage rules apply?', requested_facts: [network rule], lexical_terms: [in-network, out-of-network, participating provider]}
+          - {semantic_query: 'When are referrals and prior authorization required?', requested_facts: [referral, prior authorization], lexical_terms: [referral, prior authorization, preauthorization]}
+        expected_concepts: [[network], [referral], [prior authorization, preauthorization]]
+      - id: travel_transport
+        query: Summarize travel, emergency, and transportation coverage.
+        searches:
+          - {semantic_query: 'What emergency and urgent care is covered while traveling?', requested_facts: [travel coverage], lexical_terms: [worldwide emergency, out of area, urgent care]}
+          - {semantic_query: 'What ambulance and routine transportation services are covered?', requested_facts: [ambulance, transportation], lexical_terms: [ambulance, routine transportation, rides]}
+        expected_concepts: [[emergency, urgent], [ambulance, transportation]]
+      - id: total_cost
+        query: Summarize premiums, deductible, visit costs, and the out-of-pocket limit.
+        searches:
+          - {semantic_query: 'What monthly premium and annual deductible apply?', requested_facts: [premium, deductible], lexical_terms: [monthly premium, annual deductible]}
+          - {semantic_query: 'What common visit copayments and coinsurance apply?', requested_facts: [copayment, coinsurance], lexical_terms: [primary care, specialist, urgent care, copay]}
+          - {semantic_query: 'What annual out-of-pocket maximum applies?', requested_facts: [out-of-pocket maximum], lexical_terms: [maximum out-of-pocket, MOOP]}
+        expected_concepts: [[premium], [deductible], [copay, coinsurance], [out of pocket maximum, MOOP]]
+
+  - id: uncertainty_matrix
+    category: uncertainty
+    tier: diagnostic
+    contexts: [individual, medicare]
+    plan_selection: default_plan_ids
+    items:
+      - {id: prior_year_change, query: 'Did the deductible change from last year?', requested_facts: [current deductible, prior-year deductible], lexical_terms: [2025 deductible, 2026 deductible], expected_concepts: [[deductible]], evidence_expectation: partial, notes: Current-year documents may not establish prior-year values.}
+      - {id: exact_personal_bill, query: 'Why was my last specialist bill $487?', requested_facts: [personal bill cause], lexical_terms: [specialist cost sharing], expected_concepts: [[specialist]], evidence_expectation: absent, notes: Public documents cannot establish a personal claim cause.}
+      - {id: named_medication, query: 'Is Ozempic covered at my pharmacy and what will I pay?', requested_facts: [drug coverage, pharmacy-specific cost], lexical_terms: [Ozempic, formulary, pharmacy], expected_concepts: [[formulary, drug list, prescription]], evidence_expectation: partial}
+      - {id: meals_after_stay, query: 'How many post-discharge meals are included after a hospital stay?', requested_facts: [meal count, eligibility], lexical_terms: [post-discharge meals, meal benefit], expected_concepts: [[meal, meals]], evidence_expectation: absent}
+      - {id: international_routine, query: 'Is non-emergency routine care covered during a six-month trip abroad?', requested_facts: [international routine coverage, duration limit], lexical_terms: [worldwide, international, routine care], expected_concepts: [[worldwide, international, outside the U S]], evidence_expectation: partial}
+
+  - id: plan_level_individual
+    category: plan_level_facts
+    tier: diagnostic
+    contexts: [individual]
+    plan_selection: default_plan_ids
+    items:
+      - {id: medical_deductible, query: 'What is the in-network individual medical deductible?', requested_facts: [medical deductible amount], conditions: [in-network, individual], lexical_terms: [Medical Deductible, Individual Plan, Schedule of Cost Share and Benefits], expected_concepts: [[medical deductible], ['$5,800']]}
+      - {id: drug_deductible, query: 'What is the individual prescription drug deductible?', requested_facts: [prescription drug deductible amount], conditions: [individual], lexical_terms: [Prescription Drug Deductible, Individual Plan, Schedule of Cost Share and Benefits], expected_concepts: [[prescription drug deductible], ['$450']]}
+      - {id: individual_oop, query: 'What is the in-network individual out-of-pocket maximum?', requested_facts: [out-of-pocket maximum amount], conditions: [in-network, individual], lexical_terms: [Out of Pocket Maximums, Individual Plan, Schedule of Cost Share and Benefits], expected_concepts: [[out of pocket maximum], ['$9,800']]}
+      - {id: family_oop, query: 'What is the in-network family out-of-pocket maximum?', requested_facts: [out-of-pocket maximum amount], conditions: [in-network, family], lexical_terms: [Out of Pocket Maximums, Family Plan, Schedule of Cost Share and Benefits], expected_concepts: [[out of pocket maximum], ['$19,600']]}
+
+  - id: plan_level_medicare
+    category: plan_level_facts
+    tier: diagnostic
+    contexts: [medicare]
+    plan_selection: default_plan_ids
+    items:
+      - {id: medical_deductible, query: 'What annual medical deductible does this plan have?', requested_facts: [medical deductible amount], lexical_terms: [Summary of Benefits, medical deductible], expected_concepts: [[does not have a medical deductible, no medical deductible]]}
+      - {id: drug_deductible, query: 'What is the annual Part D prescription drug deductible?', requested_facts: [Part D deductible amount], lexical_terms: [Summary of Benefits, Part D deductible, yearly deductible], expected_concepts: [[Part D, prescription drug], ['$255.00']]}
+      - {id: medical_oop, query: 'What is the yearly in-network limit on medical and hospital out-of-pocket costs?', requested_facts: [medical out-of-pocket maximum amount], conditions: [in-network, excludes Part D drugs], lexical_terms: [Summary of Benefits, yearly limit, out-of-pocket costs], expected_concepts: [[out of pocket, yearly limit], ['$3,000.00']]}
+
+  - id: uncertainty_extra
+    category: uncertainty
+    tier: diagnostic
+    contexts: [medicare]
+    plan_selection: default_plan_ids
+    items:
+      - {id: conflicting_allowance, query: 'The summary lists two hearing-aid amounts; which amount actually applies?', requested_facts: [applicable hearing aid allowance], lexical_terms: [hearing aid allowance, OTC, prescribed], expected_concepts: [[hearing aid], [allowance, maximum]], evidence_expectation: conflicting}
+      - {id: future_change, query: 'Will this plan keep the same premium in 2027?', requested_facts: [future premium], lexical_terms: [2027 premium, plan changes], expected_concepts: [[premium]], evidence_expectation: absent}
+      - {id: provider_specific, query: 'Is Dr. Smith definitely in network at the downtown clinic?', requested_facts: [provider network status], lexical_terms: [provider directory, network], expected_concepts: [[network, provider]], evidence_expectation: absent}
+      - {id: claim_denial, query: 'Why did the plan deny my MRI claim?', requested_facts: [personal claim denial reason], lexical_terms: [MRI, prior authorization, claim], expected_concepts: [[MRI, imaging], [prior authorization, claim]], evidence_expectation: partial}
+      - {id: eligibility, query: 'Am I personally eligible for the extra dental allowance?', requested_facts: [personal eligibility], lexical_terms: [dental allowance, eligibility], expected_concepts: [[dental], [allowance, eligibility]], evidence_expectation: partial}
+
+  - id: paraphrase_matrix
+    category: paraphrase_context
+    tier: diagnostic
+    contexts: [individual, medicare]
+    plan_selection: default_plan_ids
+    items:
+      - {id: er_plain, query: "If I end up in the ER, what's my share and does admission change it?", semantic_query: 'What emergency room cost sharing applies and is it waived after hospital admission?', requested_facts: [member cost, admission waiver], lexical_terms: [emergency room, emergency care, waived if admitted], expected_concepts: [[emergency], [copay, copayment, coinsurance], [admission, admitted, waived]]}
+      - {id: specialist_plain, query: 'What will it run me to see a specialist in the network?', semantic_query: 'What is the in-network specialist visit member cost?', requested_facts: [copayment, coinsurance], lexical_terms: [specialist visit, specialist copay], expected_concepts: [[specialist], [copay, copayment, coinsurance]]}
+      - {id: max_plain, query: "What's the most I could spend for covered care in a year?", semantic_query: 'What annual out-of-pocket maximum applies to covered medical services?', requested_facts: [out-of-pocket maximum], lexical_terms: [maximum out-of-pocket, MOOP, yearly limit], expected_concepts: [[out of pocket maximum, maximum out of pocket, MOOP]]}
+      - {id: glasses_plain, query: 'How much help do I get toward glasses or contacts?', semantic_query: 'What eyewear allowance applies to eyeglasses or contact lenses?', requested_facts: [eyewear allowance], lexical_terms: [eyewear allowance, eyeglasses, contact lenses], expected_concepts: [[eyeglasses, eyewear, contact lenses], [allowance, maximum]]}
+      - {id: meds_plain, query: "Break down what I'd owe for generic, brand, and specialty meds.", semantic_query: 'What cost sharing applies to generic, brand, and specialty prescription drug tiers?', requested_facts: [generic cost, brand cost, specialty cost], lexical_terms: [Tier 1, Tier 2, Tier 5, formulary], expected_concepts: [[generic], [brand], [specialty]]}
+
+  - id: paraphrase_extra
+    category: paraphrase_context
+    tier: diagnostic
+    contexts: [medicare]
+    plan_selection: default_plan_ids
+    items:
+      - {id: followup_dental, query: 'What about dental?', semantic_query: 'What dental services, costs, and benefit limits are covered?', requested_facts: [dental coverage, member cost, limit], lexical_terms: [preventive dental, comprehensive dental, annual maximum], expected_concepts: [[dental]]}
+      - {id: followup_vision, query: 'And vision?', semantic_query: 'What routine vision services and eyewear allowance are covered?', requested_facts: [vision coverage, allowance], lexical_terms: [eye exam, eyewear allowance, contact lenses], expected_concepts: [[vision, eye exam, eyewear]]}
+      - {id: followup_deductible, query: 'How about the deductible?', semantic_query: 'What annual medical and prescription drug deductibles apply?', requested_facts: [medical deductible, drug deductible], lexical_terms: [annual deductible, Part D deductible], expected_concepts: [[deductible]]}
+      - {id: followup_out_of_town, query: "Does that still work if I'm out of town?", semantic_query: 'What emergency and urgent care is covered outside the plan service area?', requested_facts: [out-of-area coverage], lexical_terms: [out of area, travel, emergency, urgently needed], expected_concepts: [[emergency, urgent], [out of area, worldwide, travel]]}
+      - {id: followup_limit, query: 'Is there a yearly cap on that benefit?', semantic_query: 'What annual benefit maximum or service limit applies?', requested_facts: [annual maximum], lexical_terms: [annual limit, benefit maximum, allowance], expected_concepts: [[annual, per year], [limit, maximum, allowance]]}

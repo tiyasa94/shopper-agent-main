@@ -1,0 +1,96 @@
+{
+  "baseline": {
+    "agent_behavior": {
+      "Meets": 83,
+      "Misses": 24,
+      "Mixed": 26
+    },
+    "candidate": "previous-stage",
+    "response_quality": {
+      "Meets": 61,
+      "Misses": 24,
+      "Mixed": 48
+    },
+    "retrieval_observability": {
+      "Evidence and status exposed": 11,
+      "Evidence exposed; status missing": 42,
+      "No retrieval indication": 63,
+      "Retrieval indicated; no evidence exposed": 17
+    },
+    "retrieval_quality": {
+      "Meets": 19,
+      "Misses": 14,
+      "Mixed": 20,
+      "Not graded": 80
+    },
+    "summary": {
+      "audit_called": 25,
+      "business_intent_aligned": 0,
+      "completed": 133,
+      "empty_responses": 0,
+      "errors": 0,
+      "execution_failures": 0,
+      "first_tool_is_orchestrator": 0,
+      "mean_duration_seconds": 22.481,
+      "median_duration_seconds": 24.266,
+      "p95_duration_seconds": 33.576,
+      "rag_called": 70,
+      "rag_calls_audited": 25,
+      "rag_expectation_aligned": 75,
+      "repeated_rag_calls": 0,
+      "sensitive_value_echoed": 0,
+      "serialized_envelope_exposed": 0,
+      "skipped_prior_error": 0,
+      "transport_retries": 0,
+      "turns": 133
+    }
+  },
+  "candidate": {
+    "agent_behavior": {
+      "Meets": 122,
+      "Misses": 2,
+      "Mixed": 9
+    },
+    "candidate": "rc3.0-stage",
+    "response_quality": {
+      "Meets": 93,
+      "Misses": 8,
+      "Mixed": 32
+    },
+    "retrieval_observability": {
+      "Evidence and status exposed": 59,
+      "No retrieval indication": 23,
+      "Retrieval indicated; no evidence exposed": 51
+    },
+    "retrieval_quality": {
+      "Meets": 36,
+      "Misses": 12,
+      "Mixed": 11,
+      "Not graded": 74
+    },
+    "summary": {
+      "audit_called": 76,
+      "business_intent_aligned": 108,
+      "completed": 133,
+      "empty_responses": 0,
+      "errors": 0,
+      "execution_failures": 0,
+      "first_tool_is_orchestrator": 0,
+      "mean_duration_seconds": 19.7,
+      "median_duration_seconds": 17.992,
+      "p95_duration_seconds": 24.942,
+      "rag_called": 110,
+      "rag_calls_audited": 74,
+      "rag_expectation_aligned": 61,
+      "repeated_rag_calls": 0,
+      "sensitive_value_echoed": 0,
+      "serialized_envelope_exposed": 0,
+      "skipped_prior_error": 0,
+      "transport_retries": 2,
+      "turns": 133
+    }
+  },
+  "release": "rc3.0",
+  "schema_version": 1,
+  "turns_per_candidate": 133
+}

@@ -1,0 +1,19 @@
+conversation_id,turn_count,agent_behavior,response_quality,critical_issue,turn_ids,critical_issue_notes,reviewer_notes
+behavioral_ind_cost_terms,3,Mixed,Meets,false,behavioral_ind_cost_terms_01;behavioral_ind_cost_terms_02;behavioral_ind_cost_terms_03,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_marketplace,2,Meets,Meets,false,behavioral_ind_marketplace_01;behavioral_ind_marketplace_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_er_casual_selection,3,Meets,Meets,false,behavioral_ind_er_casual_selection_01;behavioral_ind_er_casual_selection_02;behavioral_ind_er_casual_selection_03,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+rc5_stage_bare_both_selection,3,Meets,Mixed,false,rc5_stage_bare_both_selection_01;rc5_stage_bare_both_selection_02;rc5_stage_bare_both_selection_03,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_personal_premium,2,Misses,Misses,false,behavioral_ind_personal_premium_01;behavioral_ind_personal_premium_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_correction,2,Meets,Meets,false,behavioral_ind_correction_01;behavioral_ind_correction_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_comparison,2,Mixed,Mixed,false,behavioral_ind_comparison_01;behavioral_ind_comparison_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_enrollment_education,2,Meets,Meets,false,behavioral_ind_enrollment_education_01;behavioral_ind_enrollment_education_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_ind_greeting_offtopic,2,Meets,Meets,false,behavioral_ind_greeting_offtopic_01;behavioral_ind_greeting_offtopic_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_hmo_pos,2,Meets,Meets,false,behavioral_medicare_hmo_pos_01;behavioral_medicare_hmo_pos_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_benefit_selection,3,Mixed,Mixed,false,behavioral_medicare_benefit_selection_01;behavioral_medicare_benefit_selection_02;behavioral_medicare_benefit_selection_03,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_current_vision,2,Meets,Meets,false,behavioral_medicare_current_vision_01;behavioral_medicare_current_vision_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_same_plan,2,Misses,Misses,false,behavioral_medicare_same_plan_01;behavioral_medicare_same_plan_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_surgery_disambiguation,3,Misses,Misses,false,behavioral_medicare_surgery_disambiguation_01;behavioral_medicare_surgery_disambiguation_02;behavioral_medicare_surgery_disambiguation_03,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_comparison,2,Meets,Meets,false,behavioral_medicare_comparison_01;behavioral_medicare_comparison_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+behavioral_medicare_unicode_selection,2,Meets,Meets,false,behavioral_medicare_unicode_selection_01;behavioral_medicare_unicode_selection_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+rc5_medigap_conflict_recovery,2,Misses,Misses,false,rc5_medigap_conflict_recovery_01;rc5_medigap_conflict_recovery_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.
+rc4_factual_reasons_boundary,2,Meets,Meets,false,rc4_factual_reasons_boundary_01;rc4_factual_reasons_boundary_02,,AI + human least-favorable turn rollup using the qualitative evaluation rubric.

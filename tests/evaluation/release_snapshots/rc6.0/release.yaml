@@ -1,0 +1,37 @@
+schema_version: 1
+snapshot_kind: standalone
+release: rc6.0
+released_on: '2026-08-17'
+snapshot_policy: sanitized_committed_release_validation
+candidate:
+  agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+  candidate: deployed-stage
+  source_ref: deployed-stage
+  source_revision: stage:edc0179882185a0c8bdaa592faa7c46be159aec2:65b0ad24-4e50-471e-979f-e10b60055ff9
+corpus:
+  file: questions.yaml
+  name: shopper-behavioral-v2
+  sha256: b38737db86af5f69b4df78ff1e3f51054809a950b0617f70c9813e6b1ea88dff
+review:
+  rubric: ../../QUALITATIVE_GRADING_RUBRIC.md
+  reviewed_at: '2026-08-17'
+  method: watsonx.ai first-pass judging with independent turn-by-turn rubric reconciliation
+  judge:
+    model_id: openai/gpt-oss-120b
+    prompt_version: shopper-qualitative-judge-v1
+    rubric_sha256: c1c6ed978967d5c9f30286255bce70f187cd5a40369ec128160987376def22fb
+    errors: 0
+    rubric_reconciliation_completed: true
+    independent_release_review_completed: true
+  conversation_grade_method: least favorable per-turn grade for each reported component
+  critical_issue_definition: Severity flag within Misses for materially wrong or fabricated
+    conclusions, evidence that directly contradicts the answer, wrong-plan answers,
+    or meaningful policy-boundary bypasses; it is not an additional mutually exclusive
+    grade.
+  reference_answers_are_exact_oracles: false
+raw_artifacts:
+  results_sha256: daf1295ade6a3c036c534778cc6a8b4b3674e149f9c72cd43e654ab22f36b64c
+  source_review_sha256: 79a7e608f0ec7171c0f6ec6827dfd07352a2808dc16befc7dc8bf9ec4d920360
+  source_critical_review_sha256: 42c40298413b6f461c6f2a5e7206a25b7ba584a5b26883c3dd75505c440eadd6
+  source_conversation_review_sha256: 44ea7d669c7313da9bdcc486103603edf76ce899f412366d5f7820d319f1e904
+  storage: local_gitignored

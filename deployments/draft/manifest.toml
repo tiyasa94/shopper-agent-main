@@ -1,0 +1,33 @@
+# Shared WXO tenant, agent, and environment identities are defined in ../cloud.toml.
+[config_map]
+RAG_API_ENVIRONMENT = "dev"
+RAG_API_BASE_URL = "https://elv-d2c-rag-api-dev.29sennthy42g.us-south.codeengine.appdomain.cloud"
+WXO_MODEL_ID = "watsonx/openai/gpt-oss-120b"
+WXO_IAM_URL = "https://iam.cloud.ibm.com/identity/token"
+RAG_IOLS_ENDPOINT = "/retrieve/iols"
+RAG_MOLS_ENDPOINT = "/retrieve/mols"
+RAG_IOLS_GENERAL_ENDPOINT = "/retrieve/iols/general"
+RAG_MOLS_GENERAL_ENDPOINT = "/retrieve/mols/general"
+RAG_PLANS_ENDPOINT = "/plans/quote"
+
+[connections]
+specs = ["src/rag_api_connection.yaml", "src/wxo_connection.yaml"]
+
+[connections.credentials."elevance-rag-tool-anthem"]
+envs = ["draft"]
+secret_vars = ["RAG_API_KEY"]
+manifest_vars = ["RAG_API_BASE_URL", "RAG_IOLS_ENDPOINT", "RAG_MOLS_ENDPOINT", "RAG_IOLS_GENERAL_ENDPOINT", "RAG_MOLS_GENERAL_ENDPOINT", "RAG_PLANS_ENDPOINT"]
+
+[connections.credentials."elevance-wxo-inference"]
+envs = ["draft"]
+secret_vars = ["WXO_API_KEY"]
+manifest_vars = ["WXO_API_URL", "WXO_MODEL_ID", "WXO_IAM_URL"]
+
+[tools]
+dir = "src/tools"
+requirements = "src/requirements.txt"
+package_dir = "src"
+app_ids = {"plan_details.py" = "elevance-rag-tool-anthem", "plan_search.py" = "elevance-rag-tool-anthem", "general_search.py" = "elevance-rag-tool-anthem", "guardrail_plugin.py" = "elevance-wxo-inference", "addendum_plugin.py" = ""}
+
+[agents]
+files = ["src/agent.yaml"]

@@ -1,0 +1,221 @@
+schema_version: 1
+turns:
+  behavioral_ind_named_telehealth_01:
+    required_response_structure: summary_details
+  behavioral_ind_unique_silver_01:
+    required_response_structure: summary_details
+  behavioral_ind_assistance_options_01:
+    required_response_structure: summary_details
+  behavioral_ind_cost_terms_01:
+    required_response_structure: summary_details
+  behavioral_ind_comparison_01:
+    required_response_structure: summary_details
+  behavioral_ind_comparison_02:
+    required_response_structure: summary_details
+  behavioral_medicare_benefit_selection_03:
+    expected_rag_called: true
+    expected_plan_ids: [H4161-007-000, H0544-063-000]
+    required_response_structure: summary_details
+  behavioral_medicare_comparison_01:
+    required_response_structure: summary_details
+  behavioral_medicare_comparison_02:
+    required_response_structure: summary_details
+  behavioral_ind_personal_premium_01:
+    expected_rag_called: false
+    expected_plan_ids: []
+    required_response_substrings:
+      - "I can't determine why your specific personal outcome occurred."
+      - member services
+    forbidden_response_substrings: ["Summary answer:", "Details:"]
+    max_response_words: 90
+  behavioral_ind_personal_bill_01:
+    expected_rag_called: false
+    expected_plan_ids: []
+    required_response_substrings:
+      - "I can't determine why your specific personal outcome occurred."
+      - member services
+    forbidden_response_substrings: ["Summary answer:", "Details:", "$487"]
+    max_response_words: 90
+  behavioral_medicare_current_precedence_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-026-000]
+    expected_detail_types: [out_of_pocket_maximum]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  behavioral_medicare_enrollment_01:
+    required_response_structure: summary_details
+  behavioral_medicare_named_prime_01:
+    required_response_structure: summary_details
+  behavioral_medicare_prime_shorthand_01:
+    required_response_structure: summary_details
+  rc5_partial_match_caremore_comparison_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H0544-058-000, H4161-012-000]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  rc5_ozempic_abbreviated_selection_03:
+    expected_rag_called: true
+    expected_plan_ids: [H0629-003-000, H0629-002-000]
+  rc5_negated_plan_correction_02:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-025-000]
+    expected_detail_types: [emergency_room]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+  rc4_inpatient_day_ranges_01:
+    required_response_structure: summary_details
+  behavioral_ind_unknown_plan_01:
+    expected_rag_called: false
+    forbid_available_plan_names: true
+    required_response_prefix: "I can provide plan-specific information only for Anthem Blue Cross plans available in this application."
+  behavioral_medicare_unknown_plan_01:
+    expected_rag_called: false
+    forbid_available_plan_names: true
+    required_response_prefix: "I can provide plan-specific information only for Anthem Blue Cross plans available in this application."
+  rc4_unavailable_mixed_comparison_01:
+    expected_rag_called: false
+    forbid_available_plan_names: true
+    required_response_prefix: "I can provide plan-specific information only for Anthem Blue Cross plans available in this application."
+  wellpoint_unavailable_external_plan_01:
+    expected_rag_called: false
+    forbid_available_plan_names: true
+    required_response_prefix: "I can provide plan-specific information only for Wellpoint plans available in this application."
+    forbidden_response_substrings: [Elevance, Anthem]
+  structured_iols_example_continuity_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [8YC0]
+    expected_detail_types: [premium]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_iols_example_continuity_02:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [8YC0]
+    expected_detail_types: [medical_deductible, emergency_room]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_iols_example_comparison_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [8YC8, 8YCN]
+    expected_detail_types: [premium, primary_care]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_iols_example_mixed_fallback_01:
+    expected_rag_called: true
+    expected_plan_details_called: true
+    expected_plan_ids: [8YCN]
+    expected_detail_types: [premium]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_mols_example_continuity_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-026-000]
+    expected_detail_types: [premium]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_mols_example_continuity_02:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-026-000]
+    expected_detail_types: [primary_care, specialist]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_mols_example_cost_limits_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-025-000]
+    expected_detail_types: [medical_deductible, pharmacy_deductible, out_of_pocket_maximum]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_iols_example_pending_premium_01:
+    expected_rag_called: false
+    expected_plan_details_called: false
+    expected_plan_ids: []
+  structured_iols_example_pending_premium_02:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [8YC0]
+    expected_detail_types: [premium]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_iols_example_visit_comparison_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [8YC8, 8YCN]
+    expected_detail_types: [specialist, urgent_care]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_mols_example_urgent_emergency_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-026-000]
+    expected_detail_types: [urgent_care, emergency_room]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_mols_example_options_and_tiers_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [H4036-025-000]
+    expected_detail_types: [plan_options, drug_tiers]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  structured_mols_example_full_medsupp_01:
+    expected_rag_called: false
+    expected_plan_details_called: true
+    expected_plan_ids: [2985_OH, 2991_OH]
+    expected_detail_types: [premium]
+    expected_plan_details_outcome: complete
+    expected_plan_details_coverage_complete: true
+    expected_plan_details_fallback_types: []
+    required_response_structure: summary_details
+  behavioral_medicare_ambiguous_hmo_01:
+    expected_rag_called: false
+
+  behavioral_medicare_medicaid_question_01:
+    expected_rag_called: false
+    expected_plan_details_called: false
+    expected_plan_ids: []
+    required_response_substrings:
+      - I can’t answer questions about Medicaid. I can help with other health-plan questions.
+    max_response_words: 20
+  behavioral_medicare_medicaid_background_01:
+    expected_rag_called: false
+    expected_plan_details_called: false
+    expected_plan_ids: []
+    required_response_substrings:
+      - Call our Licensed Agents
+    forbidden_response_substrings:
+      - I can’t answer questions about Medicaid

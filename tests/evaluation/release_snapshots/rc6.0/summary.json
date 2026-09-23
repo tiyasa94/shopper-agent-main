@@ -1,0 +1,71 @@
+{
+  "conversations": 62,
+  "multi_turn_conversations": {
+    "agent_behavior": {
+      "Meets": 18,
+      "Misses": 2,
+      "Mixed": 1
+    },
+    "critical_issues": 0,
+    "grade_method": "least favorable per-turn grade for each reported component",
+    "response_quality": {
+      "Meets": 16,
+      "Misses": 3,
+      "Mixed": 2
+    },
+    "reviewed": 21,
+    "turns": 48
+  },
+  "operational": {
+    "audit_called": 49,
+    "business_intent_aligned": 58,
+    "completed": 89,
+    "empty_responses": 0,
+    "errors": 0,
+    "execution_failures": 0,
+    "mean_duration_seconds": 8.559,
+    "median_duration_seconds": 8.143,
+    "p95_duration_seconds": 13.725,
+    "rag_called": 47,
+    "rag_calls_audited": 47,
+    "rag_expectation_aligned": 86,
+    "repeated_rag_calls": 0,
+    "sensitive_value_echoed": 0,
+    "serialized_envelope_exposed": 0,
+    "skipped_prior_error": 0,
+    "transport_retries": 0,
+    "turns": 89
+  },
+  "qualitative_review": {
+    "agent_behavior": {
+      "Meets": 84,
+      "Misses": 3,
+      "Mixed": 2
+    },
+    "critical_issues": {
+      "agent_behavior": 0,
+      "response_quality": 2,
+      "retrieval_quality": 0
+    },
+    "disposition": {
+      "Accept": 74,
+      "Defect": 8,
+      "Follow-up": 7
+    },
+    "response_quality": {
+      "Meets": 76,
+      "Misses": 6,
+      "Mixed": 7
+    },
+    "retrieval_quality": {
+      "Meets": 34,
+      "Misses": 4,
+      "Mixed": 4,
+      "Not graded": 47
+    },
+    "turns_reviewed": 89
+  },
+  "release": "rc6.0",
+  "schema_version": 1,
+  "turns": 89
+}

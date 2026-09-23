@@ -1,0 +1,27 @@
+schema_version: 1
+release: rc3.0
+released_on: '2026-07-27'
+snapshot_policy: sanitized_committed_release_baseline
+baseline:
+  agent_id: c453733a-a531-494e-8325-13474ee5a641
+  candidate: previous-stage
+  source_ref: deployed-stage
+  source_revision: 13fb7442774107d76359e1b2e95d6387476c1924:c453733a-a531-494e-8325-13474ee5a641
+candidate:
+  agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+  candidate: rc3.0-stage
+  source_ref: deployed-stage
+  source_revision: f48d39e
+  source_revision_provenance: evaluation_cli_argument
+review:
+  rubric: ../../QUALITATIVE_GRADING_RUBRIC.md
+  rubric_sha256: 84f13d464b4af7202a23e8284b6ebf57181b4d4a1e41bd3a10150d4eebff151c
+  reviewer: Qualitative rubric review
+  reviewed_at: '2026-07-27'
+  blinded_candidate_labels: true
+  reference_answers_are_exact_oracles: false
+raw_artifacts:
+  baseline_results_sha256: 756368bb6fa279ed5fc609a7ed48c2e6b953c8685abb85d7e20ef63c5f61b38e
+  candidate_results_sha256: c7a1647397392834369e79d0b246303aeb5e7764c6b3704095bdee6c84c90dec
+  source_review_sha256: de2c05f0c4e01176030539bfe149dba7f22536384928ad705ddbc8bfeff73a23
+  storage: local_gitignored

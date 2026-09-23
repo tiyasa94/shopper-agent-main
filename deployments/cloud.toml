@@ -1,0 +1,12 @@
+[wxo_tenant]
+resource_name = "shopper-wxo-nonprod"
+cli_alias = "shopperbroker"
+instance_id = "c32fc9ba-3122-4c61-a9b0-1d4aa43c9980"
+api_url = "https://api.us-south.watson-orchestrate.cloud.ibm.com/instances/c32fc9ba-3122-4c61-a9b0-1d4aa43c9980"
+region = "us-south"
+auth_type = "ibm_iam"
+
+[config_map]
+WXO_AGENT_ID = "65b0ad24-4e50-471e-979f-e10b60055ff9"
+WXO_DRAFT_ENVIRONMENT_ID = "03abe2bb-aa25-45c2-99eb-5e0488988c44"
+WXO_LIVE_ENVIRONMENT_ID = "86287933-4540-4dab-b327-6ed292979af8"

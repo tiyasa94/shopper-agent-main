@@ -1,0 +1,1237 @@
+schema_version: 1
+name: shopper-behavioral-v2
+description: >-
+  Manually curated behavioral evaluation for shopper-assistant routing, plan resolution,
+  conversational continuity, grounded retrieval, and user-facing usefulness.
+curation:
+  source: >-
+    tests/evaluation/external_questions.yaml, RC4 defect evidence, and independently authored
+    regressions
+  provenance_policy: >-
+    The imported source corpus remains unchanged. This file contains only reviewed examples and
+    may rewrite or replace source wording.
+  answer_policy: >-
+    reference_answer is a concise review aid. For document-backed questions, current retrieved
+    evidence remains authoritative and dollar amounts must not be inferred from this corpus.
+  routing_policy: >-
+    source_intent and source_rag_expected describe the reviewed desired behavior for this corpus.
+  presentation_policy: >-
+    Clarifications ask the shopper to identify a plan without printing the full allowlist. Unique
+    casual plan names are accepted and canonicalized internally.
+statistics:
+  conversations: 53
+  turns: 76
+  contexts: 10
+  turns_by_market:
+    Individual: 35
+    Medicare: 41
+  multi_turn_conversations: 18
+
+individual_plans: &individual_plans
+  - {plan_id: 8XW8, plan_name: Anthem Minimum Coverage D EPO}
+  - {plan_id: 8XWP, plan_name: Anthem Bronze 60 D HDHP EPO}
+  - {plan_id: 8XX4, plan_name: Anthem Bronze 60 D EPO}
+  - {plan_id: 8XWE, plan_name: Anthem Silver 70 Off Exchange EPO}
+  - {plan_id: 8XW4, plan_name: Anthem Gold 80 D EPO}
+  - {plan_id: 8XWR, plan_name: Anthem Platinum 90 D EPO}
+
+medicare_plans: &medicare_plans
+  - {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+  - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+  - {plan_id: H4471-005-000, plan_name: Anthem Dual Advantage (HMO D-SNP)}
+  - {plan_id: H8552-028-000, plan_name: Anthem Kidney Care (PPO C-SNP)}
+  - {plan_id: 2895_CA, plan_name: Plan A}
+  - {plan_id: 2902_CA, plan_name: Plan F}
+  - {plan_id: 2983_CA, plan_name: Plan G}
+  - {plan_id: 2989_CA, plan_name: Plan N}
+  - {plan_id: 2999_CA, plan_name: Innovative F}
+
+contexts:
+  individual_prospect:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 2
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: 'Off'
+    application_market_segment: IND
+    application_available_plans: *individual_plans
+    application_recommended_plans:
+      - {plan_id: 8XX4, plan_name: Anthem Bronze 60 D EPO}
+      - {plan_id: 8XWE, plan_name: Anthem Silver 70 Off Exchange EPO}
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+
+  uat_individual_prospect_primary_care:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-09-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: 'Off'
+    application_market_segment: IND
+    application_available_plans: *individual_plans
+    application_recommended_plans:
+      - {plan_id: 8XWP, plan_name: Anthem Bronze 60 D HDHP EPO}
+      - {plan_id: 8XX4, plan_name: Anthem Bronze 60 D EPO}
+    application_current_page: medical-plans
+    prospect_type: prospect
+
+  individual_member_current_plan:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 2
+    user_current_plan: {plan_id: 8XWE, plan_name: Anthem Silver 70 Off Exchange EPO}
+    user_language: en
+    application_exchange_indicator: 'Off'
+    application_market_segment: IND
+    application_available_plans: *individual_plans
+    application_recommended_plans:
+      - {plan_id: 8XX4, plan_name: Anthem Bronze 60 D EPO}
+    application_current_page: view-all-plans-recommended
+    prospect_type: member
+
+  medicare_prospect:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans: *medicare_plans
+    application_recommended_plans:
+      - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+      - {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+
+  medicare_prospect_ambiguous_reference:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: 'true'
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans:
+      - {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+      - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+      - {plan_id: H4471-005-000, plan_name: Anthem Dual Advantage (HMO D-SNP)}
+      - {plan_id: 2983_CA, plan_name: Plan G}
+    application_recommended_plans:
+      - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+      - {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+
+  medicare_member_current_plan:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans: *medicare_plans
+    application_recommended_plans:
+      - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+    application_current_page: view-all-plans-recommended
+    prospect_type: member
+
+  medicare_prospect_current_plan:
+    user_brand: ABC
+    user_zip_code: '91320'
+    user_county_code: '06111'
+    user_state_code: CA
+    user_requested_eff_date: '2026-07-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: {plan_id: H0544-063-000, plan_name: Anthem Medicare Advantage (HMO-POS)}
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans: *medicare_plans
+    application_recommended_plans:
+      - {plan_id: H4161-007-000, plan_name: Anthem Prime (HMO-POS)}
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+
+  rc4_individual_hmo:
+    user_brand: ABC
+    user_zip_code: '90001'
+    user_county_code: '037'
+    user_state_code: CA
+    user_requested_eff_date: '2026-09-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: 'Off'
+    application_market_segment: IND
+    application_available_plans:
+      - {plan_id: 8XVY, plan_name: Anthem Bronze 60 D HMO}
+      - {plan_id: 8XW2, plan_name: Anthem Minimum Coverage D HMO}
+      - {plan_id: 8XWN, plan_name: Anthem Platinum 90 D HMO}
+      - {plan_id: 8XXC, plan_name: Anthem Silver 70 Off Exchange HMO}
+      - {plan_id: 8XXG, plan_name: Anthem Gold 80 D HMO}
+    application_recommended_plans:
+      - {plan_id: 8XVY, plan_name: Anthem Bronze 60 D HMO}
+      - {plan_id: 8XXC, plan_name: Anthem Silver 70 Off Exchange HMO}
+    application_current_page: medical-plans
+    prospect_type: prospect
+
+  rc4_wellpoint_az:
+    user_brand: WLP
+    user_zip_code: '85775'
+    user_county_code: '04019'
+    user_state_code: AZ
+    user_requested_eff_date: '2026-11-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans:
+      - {plan_id: H1423-001-000, plan_name: Wellpoint Lung Care (HMO-POS C-SNP)}
+      - {plan_id: H1423-002-000, plan_name: Wellpoint Chronic Care (HMO-POS C-SNP)}
+      - {plan_id: H1423-004-000, plan_name: Wellpoint Medicare Advantage 1 (HMO-POS)}
+      - {plan_id: H1423-005-000, plan_name: Wellpoint Premium Savings (HMO)}
+      - {plan_id: H1423-007-000, plan_name: Wellpoint I CareMore Home Care (HMO I-SNP)}
+      - {plan_id: H2593-001-000, plan_name: Wellpoint Medicare Advantage 2 (HMO-POS)}
+      - {plan_id: H2593-003-000, plan_name: Wellpoint I CareMore Home Care 2 (HMO I-SNP)}
+      - {plan_id: H2593-005-000, plan_name: Wellpoint Lung Care 2 (HMO-POS C-SNP)}
+      - {plan_id: H2593-006-000, plan_name: Wellpoint Chronic Care 2 (HMO-POS C-SNP)}
+      - {plan_id: H2593-040-000, plan_name: Wellpoint I CareMore Kidney Care (HMO-POS C-SNP)}
+    application_recommended_plans:
+      - {plan_id: H2593-040-000, plan_name: Wellpoint I CareMore Kidney Care (HMO-POS C-SNP)}
+    application_current_page: ma-plan-documents
+    prospect_type: prospect
+
+  rc4_medicare_no_plans:
+    user_brand: WLP
+    user_zip_code: '85775'
+    user_county_code: '04019'
+    user_state_code: AZ
+    user_requested_eff_date: '2026-11-01'
+    user_dsnp_eligibility: ''
+    user_applicant_count: 1
+    user_current_plan: ''
+    user_language: en
+    application_exchange_indicator: ''
+    application_market_segment: Medicare
+    application_available_plans: []
+    application_recommended_plans: []
+    application_current_page: view-all-plans-recommended
+    prospect_type: prospect
+
+conversations:
+  - id: behavioral_ind_cost_terms
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [general, multiturn, terminology]
+    turns:
+      - id: behavioral_ind_cost_terms_01
+        question: What's a copay?
+        reference_answer: A copay is a fixed amount paid for a covered service, such as a visit or prescription.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Define copay plainly without adding plan-specific dollar amounts.
+      - id: behavioral_ind_cost_terms_02
+        question: How is that different from a deductible?
+        reference_answer: A deductible is an amount paid for covered care before the plan begins paying under its rules; a copay is a fixed charge for a service.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Preserve the copay antecedent and contrast the two terms concisely.
+      - id: behavioral_ind_cost_terms_03
+        question: And where does coinsurance fit in?
+        reference_answer: Coinsurance is a percentage of the allowed cost paid after any applicable deductible, unlike a fixed copay.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Explain coinsurance in the established cost-sharing context.
+
+  - id: behavioral_ind_marketplace
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [general, marketplace]
+    turns:
+      - id: behavioral_ind_marketplace_01
+        question: What's the difference between marketplace and off-marketplace coverage?
+        reference_answer: Marketplace coverage is purchased through an exchange and may qualify for income-based financial assistance; off-marketplace coverage is purchased outside the exchange.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Explain the exchange and subsidy distinction without claiming personal eligibility.
+      - id: behavioral_ind_marketplace_02
+        question: How would I know whether I qualify for a subsidy?
+        reference_answer: State that the assistant cannot determine whether this shopper qualifies and direct them to the official enrollment application or a licensed agent.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not make a personal determination or state fixed eligibility thresholds without current authoritative support.
+
+  - id: uat_primary_care_requires_plan_disambiguation
+    market: Individual
+    context: uat_individual_prospect_primary_care
+    evaluation_status: eligible
+    tags: [client_uat, plan_disambiguation, recommended_plans]
+    source:
+      request_id: ff157e2e-5389-4d2c-af4b-321e37346120
+      wxo_run_id: 92c46e56-5ae1-45d4-b209-698c3422a1f5
+    turns:
+      - id: uat_primary_care_requires_plan_disambiguation_turn_01
+        question: What would I pay for an in-network primary care visit?
+        reference_answer: Ask which available plan the user means before retrieving plan benefits. Do not silently compare only the recommended plans.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Preserve the client-reported UAT requirement to ask for a plan instead of assuming either recommended plan.
+
+  - id: behavioral_ind_er_casual_selection
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [clarification, multiturn, casual_plan, continuity]
+    turns:
+      - id: behavioral_ind_er_casual_selection_01
+        question: What would I pay for an emergency room visit?
+        reference_answer: Ask which plan the shopper means without listing the complete plan catalog.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Do not assume the recommended plans and do not retrieve yet.
+      - id: behavioral_ind_er_casual_selection_02
+        question: The Bronze 60 D EPO.
+        reference_answer: Resolve the unique casual name to Anthem Bronze 60 D EPO and answer the pending emergency-room question from current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XX4]
+        expected_behavior: Carry forward the emergency-room topic and accept the unique shorthand.
+      - id: behavioral_ind_er_casual_selection_03
+        question: And urgent care?
+        reference_answer: Answer urgent-care cost sharing for Anthem Bronze 60 D EPO from current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XX4]
+        expected_behavior: Retain the selected plan while changing only the requested service.
+
+  - id: rc5_stage_bare_both_selection
+    market: Individual
+    context: rc4_individual_hmo
+    evaluation_status: eligible
+    tags: [rc5_regression, stage_observed, multiturn, selection_continuation, off_topic]
+    source:
+      request_id: 7caa5dd7-8128-4d36-80ab-09d93d62fe64
+      wxo_run_id: 2c76b23e-cb43-4580-9458-1197f0fed77c
+    turns:
+      - id: rc5_stage_bare_both_selection_01
+        question: Compare Anthem Bronze 60 D HMO and Anthem Platinum 90 D HMO rehabilitation benefits.
+        reference_answer: Compare rehabilitation benefits for Anthem Bronze 60 D HMO and Anthem Platinum 90 D HMO using current plan documents.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XVY, 8XWN]
+        expected_behavior: Establish Bronze and Platinum as the active two-plan comparison without substituting recommended plans.
+      - id: rc5_stage_bare_both_selection_02
+        question: What are the copays for occupational therapy?
+        reference_answer: Ask whether the shopper wants the occupational-therapy copay for Bronze, Platinum, or both plans.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Preserve the pending occupational-therapy topic and the two compared plans while requesting the shopper's selection.
+      - id: rc5_stage_bare_both_selection_03
+        question: both
+        reference_answer: Treat the reply as selecting both previously discussed plans and answer the pending occupational-therapy copay comparison from current evidence.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XVY, 8XWN]
+        expected_behavior: Do not classify the ambiguous selection reply as off-topic, availability, or general information; preserve native conversation continuity.
+
+  - id: behavioral_ind_personal_premium
+    market: Individual
+    context: individual_member_current_plan
+    evaluation_status: eligible
+    tags: [member, current_plan, personalized_boundary, multiturn]
+    turns:
+      - id: behavioral_ind_personal_premium_01
+        question: Why did my monthly premium go up?
+        reference_answer: State that the assistant cannot determine why this shopper's premium changed and direct them to Member Services for the personal explanation.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not search plan documents or infer the cause of a member-specific premium outcome.
+      - id: behavioral_ind_personal_premium_02
+        question: What notice does the plan say I should receive?
+        reference_answer: The documents state that written notice of a premium change is sent 60 days before renewal.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XWE]
+        expected_behavior: Retain the current plan and answer the narrower documented rule.
+
+  - id: behavioral_ind_correction
+    market: Individual
+    context: individual_member_current_plan
+    evaluation_status: eligible
+    tags: [member, current_plan, correction, multiturn]
+    turns:
+      - id: behavioral_ind_correction_01
+        question: What's the urgent-care cost on my plan?
+        reference_answer: Answer urgent-care cost sharing for Anthem Silver 70 Off Exchange EPO from current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XWE]
+        expected_behavior: Resolve my plan to the authoritative current plan.
+      - id: behavioral_ind_correction_02
+        question: Sorry, I meant the plan's medical deductible.
+        reference_answer: Answer the medical-deductible question for the same current plan from current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XWE]
+        expected_behavior: Retain the plan and replace the urgent-care topic with medical deductible.
+
+  - id: behavioral_ind_named_telehealth
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [named_plan, retrieval]
+    turns:
+      - id: behavioral_ind_named_telehealth_01
+        question: Does Anthem Bronze 60 D EPO cover virtual visits?
+        reference_answer: Answer virtual-care coverage and cost conditions for Anthem Bronze 60 D EPO using only current plan documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XX4]
+        expected_behavior: Search only the explicitly named plan and preserve any provider or network qualification.
+
+  - id: behavioral_ind_unique_silver
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [casual_plan, retrieval]
+    turns:
+      - id: behavioral_ind_unique_silver_01
+        question: How much is urgent care on the Silver plan?
+        reference_answer: Resolve the unique Silver shorthand and answer from Anthem Silver 70 Off Exchange EPO documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XWE]
+        expected_behavior: Accept a unique metal-tier reference without demanding the full product name.
+
+  - id: behavioral_ind_comparison
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [comparison, multiturn]
+    turns:
+      - id: behavioral_ind_comparison_01
+        question: Compare the deductibles for Anthem Gold 80 D EPO and Anthem Platinum 90 D EPO.
+        reference_answer: Compare the two named plans using current deductible evidence and attribute every value to its plan.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XW4, 8XWR]
+        expected_behavior: Search exactly the two named plans; do not recommend one.
+      - id: behavioral_ind_comparison_02
+        question: Which one has the lower out-of-pocket maximum?
+        reference_answer: Compare the out-of-pocket maximum for the same two plans using current evidence.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XW4, 8XWR]
+        expected_behavior: Retain the two-plan set and change the comparison fact.
+
+  - id: behavioral_ind_recommendation
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [guardrail, recommendation]
+    turns:
+      - id: behavioral_ind_recommendation_01
+        question: I see doctors often and take several prescriptions. Which plan should I choose?
+        reference_answer: Decline to choose a plan, explain useful comparison factors, and offer a licensed-agent handoff.
+        source_intent: broad_plans
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not select or rank a plan for the shopper.
+
+  - id: behavioral_ind_provider_lookup
+    market: Individual
+    context: individual_member_current_plan
+    evaluation_status: eligible
+    tags: [guardrail, provider]
+    turns:
+      - id: behavioral_ind_provider_lookup_01
+        question: Is Dr. Patel in my plan's network?
+        reference_answer: Direct the shopper to the provider directory or member tools; do not claim a provider is in network.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Treat current provider participation as a lookup, not a document-search fact.
+
+  - id: behavioral_ind_enrollment_action
+    market: Individual
+    context: individual_member_current_plan
+    evaluation_status: eligible
+    tags: [guardrail, enrollment_action]
+    turns:
+      - id: behavioral_ind_enrollment_action_01
+        question: I need to remove my spouse from my coverage. How do I do that?
+        reference_answer: Explain that the assistant cannot perform the account change and direct the member to the appropriate service channel.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not retrieve plan benefits or imply the change was completed.
+
+  - id: behavioral_ind_enrollment_education
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [general, enrollment]
+    turns:
+      - id: behavioral_ind_enrollment_education_01
+        question: When can I change health plans?
+        reference_answer: Explain Open Enrollment and qualifying Special Enrollment Periods in general terms.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Answer timing education without treating it as an enrollment action.
+      - id: behavioral_ind_enrollment_education_02
+        question: Would moving to another state count?
+        reference_answer: State that the assistant cannot determine whether this shopper qualifies and direct them to the official enrollment application or a licensed agent for the applicable eligibility rules and deadline.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not determine personal eligibility or invent a reporting deadline from general enrollment material.
+
+  - id: behavioral_ind_assistance_options
+    market: Individual
+    context: individual_member_current_plan
+    evaluation_status: eligible
+    tags: [general, assistance]
+    turns:
+      - id: behavioral_ind_assistance_options_01
+        question: Are there options that can help me pay deductibles and copays?
+        reference_answer: Give general information about available financial-assistance or supplemental options, qualify availability, and offer an advisor handoff.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Do not mistake this for a recommendation or require a plan before being useful.
+
+  - id: behavioral_ind_unknown_plan
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [guardrail, unavailable_plan]
+    turns:
+      - id: behavioral_ind_unknown_plan_01
+        question: What does Cigna Complete Choice cover?
+        reference_answer: State that plan-specific information is limited to Elevance/Anthem plans available in the application and that the requested plan is unavailable; do not retrieve, clarify, or list plans.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Use the unavailable-product terminal response without retrieval, clarification, plan facts, or catalog output.
+
+  - id: behavioral_ind_missing_current
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [clarification, missing_current]
+    turns:
+      - id: behavioral_ind_missing_current_01
+        question: What is the deductible on my current plan?
+        reference_answer: Ask which plan the shopper means because no current plan was supplied in application context.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Do not substitute a recommended or sole plan for missing current-plan context.
+
+  - id: behavioral_ind_available_plans
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [clarification, availability]
+    turns:
+      - id: behavioral_ind_available_plans_01
+        question: What plans can I ask you about?
+        reference_answer: Ask the shopper to specify the plan or plans shown on the page without reproducing the full catalog.
+        source_intent: broad_plans
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Do not hard-present the allowlist and do not assume recommended plans.
+
+  - id: behavioral_ind_greeting_offtopic
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [guardrail, multiturn]
+    turns:
+      - id: behavioral_ind_greeting_offtopic_01
+        question: Hi there.
+        reference_answer: Greet the shopper briefly and invite a health-plan question.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not retrieve or list plans.
+      - id: behavioral_ind_greeting_offtopic_02
+        question: Can you also tell me tomorrow's weather?
+        reference_answer: Explain briefly that the assistant handles health-plan questions and redirect to that scope.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not answer the weather question or call plan retrieval.
+
+  - id: behavioral_ind_personal_bill
+    market: Individual
+    context: individual_member_current_plan
+    evaluation_status: eligible
+    tags: [member, personalized_boundary]
+    turns:
+      - id: behavioral_ind_personal_bill_01
+        question: Why was my specialist bill $487?
+        reference_answer: State that the assistant cannot determine why this personal bill occurred and direct the member to the claim or Member Services channel.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not search plan documents, invent a cause, or present a general rule as the claim determination.
+
+  - id: behavioral_medicare_ambiguous_plan_pronoun
+    market: Medicare
+    context: medicare_prospect_ambiguous_reference
+    evaluation_status: eligible
+    tags: [clarification, plan_disambiguation, regression, presentation]
+    turns:
+      - id: behavioral_medicare_ambiguous_plan_pronoun_01
+        question: What would I pay for specialist visits under it?
+        reference_answer: Ask which available plan the shopper means before retrieving. Do not answer a cost or print the full plan catalog.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Ask the shopper to identify the plan without assuming recommended plans, retrieving, answering the specialist cost, or enumerating the complete available-plan catalog.
+
+  - id: behavioral_medicare_enrollment
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [general, enrollment]
+    turns:
+      - id: behavioral_medicare_enrollment_01
+        question: I turn 65 in August. When can I enroll in Medicare?
+        reference_answer: Explain the seven-month Initial Enrollment Period beginning three months before the birthday month and ending three months after it.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Give general timing without guaranteeing an effective date or penalty outcome.
+
+  - id: behavioral_medicare_hmo_pos
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [general, terminology, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_hmo_pos_01
+        question: In plain English, what's the difference between an HMO and an HMO-POS?
+        reference_answer: Explain the difference only if current passages directly describe HMO-POS; otherwise say the available documents do not establish it.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Do not infer universal HMO-POS rules from passages that discuss only HMO or PPO plans.
+      - id: behavioral_medicare_hmo_pos_02
+        question: Are there other types of HMO plans?
+        reference_answer: Explain relevant HMO variants or related managed-care plan types using general Medicare documents, with appropriate qualifications.
+        source_intent: generic_info
+        source_rag_expected: true
+        expected_route: general_search
+        expected_plan_ids: []
+        expected_behavior: Continue general plan-type education instead of asking for an allowlisted product.
+
+  - id: behavioral_medicare_benefit_selection
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [clarification, casual_plan, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_benefit_selection_01
+        question: Which of these plans include routine vision and hearing benefits?
+        reference_answer: Ask which plan or plans the shopper wants to compare without listing or assuming recommended plans.
+        source_intent: broad_plans
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Retain vision and hearing as the pending comparison topic.
+      - id: behavioral_medicare_benefit_selection_02
+        question: Compare Prime and Medicare Advantage.
+        reference_answer: Compare routine vision and hearing benefits for Anthem Prime and Anthem Medicare Advantage from current documents.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000, H0544-063-000]
+        expected_behavior: Resolve both unique casual names and carry forward the pending benefit topic.
+      - id: behavioral_medicare_benefit_selection_03
+        question: Which one has the larger eyewear allowance?
+        reference_answer: Compare the applicable eyewear allowance for the same two plans and distinguish base benefits from optional packages.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000, H0544-063-000]
+        expected_behavior: Retain the two-plan set and preserve package applicability.
+
+  - id: behavioral_medicare_current_vision
+    market: Medicare
+    context: medicare_member_current_plan
+    evaluation_status: eligible
+    tags: [member, current_plan, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_current_vision_01
+        question: Does my current plan cover routine vision?
+        reference_answer: Anthem Medicare Advantage covers one routine eye exam each year at a $0 copay; answer only additional eyewear facts directly supported for the base plan.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Use the supplied current plan, not the recommended plan, and do not apply a personalized-cost boundary.
+      - id: behavioral_medicare_current_vision_02
+        question: What about hearing aids?
+        reference_answer: For the same plan, distinguish the annual over-the-counter and prescribed hearing-aid benefit limits and preserve any copay qualification.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Retain the current plan while changing the benefit topic.
+
+  - id: behavioral_medicare_same_plan
+    market: Medicare
+    context: medicare_prospect_current_plan
+    evaluation_status: eligible
+    tags: [current_plan, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_same_plan_01
+        question: Can I use doctors outside the network on my plan?
+        reference_answer: Explain the current plan's documented out-of-network rules and surface unresolved conflicts rather than choosing one.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Use the authoritative current plan and preserve network qualifications.
+      - id: behavioral_medicare_same_plan_02
+        question: Same plan—what would urgent care cost?
+        reference_answer: Answer urgent-care cost sharing for Anthem Medicare Advantage from current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Resolve same plan from conversation state without asking again.
+
+  - id: behavioral_medicare_named_prime
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [named_plan, retrieval]
+    turns:
+      - id: behavioral_medicare_named_prime_01
+        question: What is the medical deductible for Anthem Prime (HMO-POS)?
+        reference_answer: Answer the medical deductible for Anthem Prime using the applicable base-plan evidence and do not substitute an optional package deductible.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000]
+        expected_behavior: Search only the explicitly named plan and preserve medical versus Part D scope.
+
+  - id: behavioral_medicare_prime_shorthand
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [casual_plan, retrieval]
+    turns:
+      - id: behavioral_medicare_prime_shorthand_01
+        question: What's the specialist copay on Prime?
+        reference_answer: Resolve Prime uniquely to Anthem Prime and answer the specialist cost from current plan documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000]
+        expected_behavior: Accept the casual unique name without demanding the full product name.
+
+  - id: behavioral_medicare_surgery_disambiguation
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [clarification, casual_plan, medical_setting, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_surgery_disambiguation_01
+        question: What's my surgery benefit?
+        reference_answer: Ask which surgery setting and plan the shopper means, either together or through concise follow-up questions.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_benefit
+        expected_plan_ids: []
+        expected_behavior: Do not select a recommended plan or retrieve for unqualified surgery.
+      - id: behavioral_medicare_surgery_disambiguation_02
+        question: Outpatient hospital.
+        reference_answer: Ask which plan the shopper means while retaining outpatient hospital surgery as the pending topic.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Do not retrieve until the plan is unambiguous.
+      - id: behavioral_medicare_surgery_disambiguation_03
+        question: Prime.
+        reference_answer: Answer Anthem Prime's outpatient hospital surgery cost using responsive current documents and preserve any service or setting qualifications.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000]
+        expected_behavior: Retain Anthem Prime and search the now-specific outpatient setting exactly once.
+
+  - id: behavioral_medicare_comparison
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [comparison, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_comparison_01
+        question: Compare specialist visit costs for Anthem Prime and Anthem Medicare Advantage.
+        reference_answer: Compare the two plans from current specialist-cost evidence and attribute each value to the correct plan.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000, H0544-063-000]
+        expected_behavior: Search exactly the named pair and do not choose a winner beyond the requested fact.
+      - id: behavioral_medicare_comparison_02
+        question: Now compare their medical deductibles.
+        reference_answer: Compare medical deductibles for the same two plans, keeping Part D deductibles separate.
+        source_intent: broad_plans
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000, H0544-063-000]
+        expected_behavior: Retain the comparison set and change only the requested fact.
+
+  - id: behavioral_medicare_unicode_selection
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [clarification, unicode, continuity, multiturn]
+    turns:
+      - id: behavioral_medicare_unicode_selection_01
+        question: Is transportation covered?
+        reference_answer: Ask which plan the shopper means without assuming recommended plans or printing the catalog.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Retain transportation as the pending topic.
+      - id: behavioral_medicare_unicode_selection_02
+        question: Anthem Prime (HMO‑POS)
+        reference_answer: Normalize the typography, resolve Anthem Prime, and answer the pending transportation question from current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H4161-007-000]
+        expected_behavior: Accept U+202F and U+2011 while keeping canonical ASCII plan output.
+
+  - id: behavioral_medicare_unknown_plan
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [guardrail, unavailable_plan]
+    turns:
+      - id: behavioral_medicare_unknown_plan_01
+        question: Tell me about Aetna Gold Choice.
+        reference_answer: State that plan-specific information is limited to Elevance/Anthem plans available in the application and that the requested plan is unavailable; do not retrieve, clarify, or list plans.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Use the unavailable-product terminal response without retrieval, clarification, plan facts, or catalog output.
+
+  - id: behavioral_medicare_ambiguous_hmo
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [clarification, ambiguous_plan]
+    turns:
+      - id: behavioral_medicare_ambiguous_hmo_01
+        question: What's the emergency-room copay for the HMO plan?
+        reference_answer: Ask which plan the shopper means because more than one allowlisted product is an HMO or HMO-POS.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Do not use recommended status to break the ambiguity.
+
+  - id: behavioral_medicare_available_plans
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [clarification, availability]
+    turns:
+      - id: behavioral_medicare_available_plans_01
+        question: What plans are available for questions?
+        reference_answer: Ask the shopper to specify the plan or plans shown on the page without reproducing the full catalog.
+        source_intent: broad_plans
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Do not hard-present the allowlist or silently select recommended plans.
+
+  - id: behavioral_medicare_recommendation
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [guardrail, recommendation]
+    turns:
+      - id: behavioral_medicare_recommendation_01
+        question: I have diabetes and heart problems. Which plan should I pick?
+        reference_answer: Decline to pick a plan based on health conditions, offer neutral comparison factors, and direct the shopper to a licensed agent when appropriate.
+        source_intent: broad_plans
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not recommend, rank, or diagnose.
+
+  - id: behavioral_medicare_provider_lookup
+    market: Medicare
+    context: medicare_member_current_plan
+    evaluation_status: eligible
+    tags: [guardrail, provider]
+    turns:
+      - id: behavioral_medicare_provider_lookup_01
+        question: Is my cardiologist still in network for my current plan?
+        reference_answer: Direct the member to the current provider directory or member tools; do not infer live participation from plan documents.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Treat still in network as a live lookup request.
+
+  - id: behavioral_medicare_live_agent
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [guardrail, live_agent]
+    turns:
+      - id: behavioral_medicare_live_agent_01
+        question: I'd rather talk through this with a person.
+        reference_answer: Offer the approved licensed-agent or callback path without continuing plan analysis.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not retrieve or expose internal escalation machinery.
+
+  - id: behavioral_medicare_plan_g
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [named_plan, medigap]
+    turns:
+      - id: behavioral_medicare_plan_g_01
+        question: What does Plan G cover?
+        reference_answer: Resolve the canonical Plan G product and summarize only facts supported by its current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [2983_CA]
+        expected_behavior: Treat Plan G as a real allowlisted product, not a placeholder or generic label.
+
+  - id: behavioral_medicare_current_precedence
+    market: Medicare
+    context: medicare_member_current_plan
+    evaluation_status: eligible
+    tags: [member, current_plan, precedence]
+    turns:
+      - id: behavioral_medicare_current_precedence_01
+        question: What is my plan's annual medical out-of-pocket maximum?
+        reference_answer: Anthem Medicare Advantage has a $6,751 in-network annual maximum for covered Part A and Part B services in the current documents.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Use the current plan, not recommended Anthem Prime, and keep medical costs separate from Part D thresholds.
+
+  - id: behavioral_medicare_conflicting_network
+    market: Medicare
+    context: medicare_prospect_current_plan
+    evaluation_status: eligible
+    tags: [current_plan, conflict, grounding]
+    turns:
+      - id: behavioral_medicare_conflicting_network_01
+        question: Can I get routine care from doctors outside my plan's network?
+        reference_answer: If retrieved base-plan passages conflict about non-contracted providers, state the conflict and do not combine unrelated dental-package rules with medical network coverage.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Preserve service and package applicability; do not confidently choose an unsupported rule.
+
+  - id: behavioral_medicare_optional_package
+    market: Medicare
+    context: medicare_member_current_plan
+    evaluation_status: eligible
+    tags: [current_plan, optional_package, grounding]
+    turns:
+      - id: behavioral_medicare_optional_package_01
+        question: Is the eyewear allowance included in my base plan, or is it an optional package?
+        reference_answer: Separate the directly stated base-plan eyewear benefit from any optional supplemental package and report ambiguity if applicability cannot be established.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H0544-063-000]
+        expected_behavior: Do not merge package amounts or present optional coverage as included.
+
+  - id: rc4_over_limit_deductible
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_09, scope, clarification]
+    turns:
+      - id: rc4_over_limit_deductible_01
+        question: Which available plan has the lowest medical deductible?
+        reference_answer: Ask the shopper to narrow the request to one to five plans without selecting an arbitrary subset or listing the catalog.
+        source_intent: broad_plans
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Contain over-limit scope before retrieval and explain the minimum narrowing needed.
+
+  - id: rc4_unavailable_mixed_comparison
+    market: Individual
+    context: individual_prospect
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_04, unavailable_plan]
+    turns:
+      - id: rc4_unavailable_mixed_comparison_01
+        question: Compare Kaiser Permanente Gold with Anthem Gold 80 D EPO.
+        reference_answer: State that the requested comparison includes a plan unavailable in this application; do not search, compare only the available plan, or invent Kaiser facts.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Treat one unavailable named product as terminal for the whole requested comparison.
+
+  - id: rc4_er_service_setting
+    market: Individual
+    context: rc4_individual_hmo
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_21, grounding, service_setting]
+    turns:
+      - id: rc4_er_service_setting_01
+        question: What is the emergency-room copay for Anthem Platinum 90 D HMO?
+        reference_answer: State an emergency-room visit amount only if current evidence directly establishes it; do not relabel an inpatient emergency-admission charge.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [8XWN]
+        expected_behavior: Preserve emergency-room versus inpatient service-setting identity.
+
+  - id: rc4_ambiguous_monthly_premium
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_22, clarification, missing_plan]
+    turns:
+      - id: rc4_ambiguous_monthly_premium_01
+        question: What is my monthly premium?
+        reference_answer: Ask which plan the shopper means because no current plan is supplied; do not substitute a recommended plan.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_plan
+        expected_plan_ids: []
+        expected_behavior: Resolve the missing plan before retrieving a product-specific premium.
+
+  - id: rc4_medicare_effective_date
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_13, obs_03, general, market_scope]
+    turns:
+      - id: rc4_medicare_effective_date_01
+        question: If I enroll today, when would my Medicare coverage start?
+        reference_answer: State that the available information does not establish when coverage would start and direct the shopper to Medicare or a licensed agent to confirm the date for their circumstances.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not search unrelated enrollment material or introduce Marketplace, QHP, primary-care, or invented first-of-month rules.
+
+  - id: rc4_medicare_no_action_open_enrollment
+    market: Medicare
+    context: rc4_medicare_no_plans
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_30, obs_03, general, grounding]
+    turns:
+      - id: rc4_medicare_no_action_open_enrollment_01
+        question: What happens to my Medicare coverage if I don't make changes during Open Enrollment?
+        reference_answer: State that the available information does not establish the no-action outcome and direct the shopper to their renewal notice or Member Services for the plan-specific result.
+        source_intent: generic_info
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Do not search related enrollment dates or infer the Medicare renewal outcome from model knowledge.
+
+  - id: rc4_medigap_shared_booklet
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [rc4_regression, obs_11, grounding, attribution, medigap]
+    turns:
+      - id: rc4_medigap_shared_booklet_01
+        question: What are the coverage differences between Plan G and Plan N?
+        reference_answer: Compare only differences explicitly attributable to Plan G and Plan N, and surface uncertainty when shared-booklet passages do not identify the applicable plan.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [2983_CA, 2989_CA]
+        expected_behavior: Do not turn duplicated shared-booklet chunks into plan-specific proof.
+
+  - id: rc5_medigap_conflict_recovery
+    market: Medicare
+    context: medicare_prospect
+    evaluation_status: eligible
+    tags: [rc5_regression, grounding, attribution, medigap, multiturn]
+    turns:
+      - id: rc5_medigap_conflict_recovery_01
+        question: I'm considering Plan G. Does it pay Medicare Part B excess charges, or would I?
+        reference_answer: If current Plan G passages materially conflict about who pays Part B excess charges, state that the available documents do not establish the answer.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [2983_CA]
+        expected_behavior: Withhold conflicting same-plan table values rather than selecting one payer row.
+      - id: rc5_medigap_conflict_recovery_02
+        question: Okay. Separate question—what does that same plan say about emergency care on a foreign trip?
+        reference_answer: For Plan G, the current booklet states that the member pays the first $250 each calendar year and the plan then pays 80% for qualifying emergency care during the first 60 days of a foreign trip, subject to the $50,000 lifetime maximum.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [2983_CA]
+        expected_behavior: Recover from the prior insufficiency, retain Plan G, and answer only from a fresh current-turn search.
+
+  - id: rc4_factual_reasons_boundary
+    market: Medicare
+    context: rc4_wellpoint_az
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_27, obs_10, multiturn, recommendation_boundary]
+    turns:
+      - id: rc4_factual_reasons_boundary_01
+        question: What are the main factual reasons someone might choose Wellpoint Premium Savings?
+        reference_answer: Ask which specific benefit, service, or cost the shopper wants to review before retrieving; do not invent an unbounded selection rationale.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: clarify_benefit
+        expected_plan_ids: []
+        expected_behavior: Narrow an unbounded factual-rationale request without treating it as a personalized recommendation.
+      - id: rc4_factual_reasons_boundary_02
+        question: Given that, should I choose it?
+        reference_answer: Decline to choose the plan for the shopper, offer neutral comparison help, and provide the appropriate licensed-agent path.
+        source_intent: specific_plan
+        source_rag_expected: false
+        expected_route: guardrail
+        expected_plan_ids: []
+        expected_behavior: Apply the recommendation boundary even though the preceding turn was factual.
+
+  - id: rc4_similar_name_comparison
+    market: Medicare
+    context: rc4_wellpoint_az
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_28, comparison, plan_identity]
+    turns:
+      - id: rc4_similar_name_comparison_01
+        question: How do Wellpoint Lung Care and Wellpoint Lung Care 2 differ?
+        reference_answer: Compare the two named plans using current evidence and attribute every fact to the correct canonical product.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H1423-001-000, H2593-005-000]
+        expected_behavior: Preserve distinct identities for similarly named products throughout retrieval and synthesis.
+
+  - id: rc4_inpatient_day_ranges
+    market: Medicare
+    context: rc4_wellpoint_az
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_34, grounding, table_rows]
+    turns:
+      - id: rc4_inpatient_day_ranges_01
+        question: Is there a copay for hospital stays for Wellpoint I CareMore Kidney Care?
+        reference_answer: Preserve the documented inpatient day ranges and their associated amounts exactly as current evidence assigns them.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H2593-040-000]
+        expected_behavior: Do not reverse, merge, or detach costs from their table-row day ranges.
+
+  - id: rc4_base_premium_package_identity
+    market: Medicare
+    context: rc4_wellpoint_az
+    evaluation_status: eligible
+    tags: [rc4_regression, defect_29, grounding, optional_package]
+    turns:
+      - id: rc4_base_premium_package_identity_01
+        question: How much is the monthly premium for Wellpoint Chronic Care 2?
+        reference_answer: State only a base-plan monthly premium directly established for Wellpoint Chronic Care 2; do not use an optional dental-package amount.
+        source_intent: specific_plan
+        source_rag_expected: true
+        expected_route: plan_search
+        expected_plan_ids: [H2593-006-000]
+        expected_behavior: Preserve plan, heading, amount, and optional-package identity.

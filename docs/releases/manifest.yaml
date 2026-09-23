@@ -1,0 +1,591 @@
+releases:
+  - name: RC7.0
+    released_on: 2026-08-24
+    status: dev validation complete; ready for release review and client UAT
+    audience: release review and client UAT
+    notes: rc7.0.md
+    source:
+      branch: main
+      baseline_release: RC6.0
+      baseline_repository_revision: d7908179e510a7f0b6ffa16fd96e9382ee7db942
+      repository_revision: 7a71adee395091f4b8778999f56e4368f8a727a7
+      evaluated_agent_revision: 7a71adee395091f4b8778999f56e4368f8a727a7
+      source_bundle_sha256: 204f636e779e1c15d1d3f19ce99636b4d134d5b557e49a7f0ca63d9b11344592
+      effective_candidate_sha256: 204f636e779e1c15d1d3f19ce99636b4d134d5b557e49a7f0ca63d9b11344592
+      agent_definition_sha256: 4c1040a1d2a82361a925aac925fcc1e68fa406889575e3ab0773352e0a25ade7
+    deployment:
+      environments: [draft, dev]
+      agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+      shopper_assistant_api_revision: ca978005a5fac0eb966ef724a61ff316b81bef48
+      dev_shopper_assistant_api: https://elv-d2c-shopper-assistant-api-dev.2a6km91zabtc.us-south.codeengine.appdomain.cloud
+      stage_shopper_assistant_api: null
+      rag_collections: [IOLS_EN, MOLS_EN]
+    validation:
+      status: dev validation and manual pairwise reconciliation complete; ready for release review
+      comparison: Frozen RC6.0 responses versus warmed RC7.0 dev API responses on the same 89 turn IDs
+      corpus: tests/evaluation/behavioral_questions.yaml
+      corpus_name: shopper-behavioral-v2
+      corpus_sha256: 7a5074307af12b17441a67df8bb328aacd57ffe43145c8cc5f497c3eca1722b2
+      suite: full
+      environment: dev through Shopper Assistant API
+      completed_at: '2026-08-25T00:59:43Z'
+      conversations: 62
+      multi_turn_conversations: 21
+      turns: 89
+      completed: 89
+      errors: 0
+      execution_failures: 0
+      skipped_turns: 0
+      transport_retries: 0
+      empty_responses: 0
+      business_intent_aligned: 59
+      raw_harness_rag_expectation_aligned: 86
+      rag_indications: 49
+      rag_indications_with_audit_metadata: 49
+      evidence_exposed_rag_turns: 43
+      repeated_rag_calls: 0
+      mean_seconds: 7.234
+      median_seconds: 7.471
+      p95_seconds: 9.898
+      sensitive_value_echoes: 0
+      serialized_envelopes_exposed: 0
+      repository_tests:
+        passed: 746
+        failed: 0
+        total: 746
+        note: passed across the shopper-agent and sibling Shopper API native runtimes
+      critical_assertions: {passed: 23, failed: 3, total: 26}
+      qualitative_review:
+        review_type: manual turn-by-turn rubric-v2 reconciliation after automated judging
+        turns_reviewed: 89
+        agent_behavior: {meets: 83, mixed: 5, misses: 1}
+        response_quality: {meets: 74, mixed: 13, misses: 2}
+        retrieval_quality: {graded_turns: 43, meets: 33, mixed: 4, misses: 6, not_graded: 46}
+        critical_response_issues: 1
+        critical_defect_families: 1
+        multi_turn_scenarios:
+          total: 21
+          behavior: {meets: 17, mixed: 3, misses: 1}
+          response_quality: {meets: 12, mixed: 7, misses: 2}
+          critical_issues: 1
+      pairwise_current_rubric:
+        compared_on: '2026-08-24'
+        environment: dev through Shopper Assistant API
+        shopper_assistant_api_revision: ca978005a5fac0eb966ef724a61ff316b81bef48
+        conversations: 62
+        multi_turn_conversations: 21
+        turns: 89
+        completed: 89
+        errors: 0
+        execution_failures: 0
+        transport_retries: 0
+        empty_responses: 0
+        raw_harness_rag_expectation_aligned: 86
+        mean_seconds: 7.234
+        median_seconds: 7.471
+        p95_seconds: 9.898
+        deterministic_assertions: {passed: 23, failed: 3, total: 26}
+        review_type: manual rubric-v2 adjudication with frozen RC6 grades retained
+        rc6_current_rubric:
+          agent_behavior: {meets: 84, mixed: 4, misses: 1}
+          response_quality: {meets: 74, mixed: 9, misses: 6}
+          retrieval_quality: {graded_turns: 42, meets: 34, mixed: 4, misses: 4, not_graded: 47}
+          critical_response_issues: 5
+          critical_defect_families: 4
+        rc7_current_rubric:
+          agent_behavior: {meets: 83, mixed: 5, misses: 1}
+          response_quality: {meets: 74, mixed: 13, misses: 2}
+          retrieval_quality: {graded_turns: 43, meets: 33, mixed: 4, misses: 6, not_graded: 46}
+          critical_response_issues: 1
+          critical_defect_families: 1
+        paired_turns:
+          agent_behavior: {rc7_better: 4, tied: 81, rc6_better: 4}
+          response_quality: {rc7_better: 8, tied: 74, rc6_better: 7}
+          retrieval_quality: {rc7_better: 3, tied: 34, rc6_better: 4, not_comparable: 48}
+        multi_turn_scenarios:
+          rc6_behavior: {meets: 18, mixed: 2, misses: 1}
+          rc7_behavior: {meets: 17, mixed: 3, misses: 1}
+          rc6_response_quality: {meets: 14, mixed: 3, misses: 4}
+          rc7_response_quality: {meets: 12, mixed: 7, misses: 2}
+          critical_conversations: {rc6: 3, rc7: 1}
+        paired_latency:
+          rc7_faster_turns: 63
+          rc6_faster_turns: 26
+          both_retrieval_median_seconds: {rc6: 9.844, rc7: 8.249}
+          neither_retrieval_median_seconds: {rc6: 6.074, rc7: 5.840}
+      operational_stability:
+        concurrency_three_full_corpus:
+          completed: 89
+          errors: 0
+          execution_failures: 0
+          transport_retries: 0
+          median_seconds: 7.602
+          p95_seconds: 12.148
+          rag_calls_audited: 47
+          rag_calls: 47
+        shopper_api_mixed_transport: {json_turns: 2, sse_turns: 1, passed: true}
+        rag_api_acceptance:
+          passed: 15
+          failed: 0
+          stale_key_http_status: 401
+          warm_load: {requests: 10, concurrency: 5, p95_seconds: 0.350}
+          cold_unique_load: {requests: 10, concurrency: 5, p95_seconds: 0.711}
+      artifacts_committed: true
+      artifacts:
+        release_snapshot: tests/evaluation/release_snapshots/rc7.0
+        run: tests/evaluation/release_snapshots/rc7.0/run.json
+        questions: tests/evaluation/release_snapshots/rc7.0/questions.yaml
+        responses: tests/evaluation/release_snapshots/rc7.0/responses.jsonl
+        response_grades: tests/evaluation/release_snapshots/rc7.0/component-review.csv
+        conversation_grades: tests/evaluation/release_snapshots/rc7.0/conversation-review.csv
+        summary: tests/evaluation/release_snapshots/rc7.0/summary.json
+        checksums: tests/evaluation/release_snapshots/rc7.0/checksums.sha256
+        grading_rubric: tests/evaluation/QUALITATIVE_GRADING_RUBRIC.md
+  - name: RC6.0
+    released_on: 2026-08-17
+    status: stage validation and release review complete
+    audience: release review and client UAT
+    notes: rc6.0.md
+    source:
+      branch: main
+      baseline_repository_revision: 42ac5e7f145b10d30ba83cfb9298d2e38a81625f
+      repository_revision: d7908179e510a7f0b6ffa16fd96e9382ee7db942
+      evaluated_agent_revision: 3db96be140f2b29e4acc75b04bc1a86c2132b171
+      source_bundle_sha256: 981b89a493d9928924909471d96b403480b6972f2bad13eb78fee1da517e38ac
+      agent_definition_sha256: 5994f9af97904a93b55b8898f15f1fe142850ffe1d692f0da3ce2b88283fcf71
+    deployment:
+      environments: [draft, live]
+      agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+      shopper_assistant_api_revision: ecb075dbceb43f0d150d7f4329f7a6ae523a8a21
+      stage_shopper_assistant_api: https://elv-d2c-shopper-assistant-api-stage.2a6km91zabtc.us-south.codeengine.appdomain.cloud
+      rag_collections: [IOLS_EN, MOLS_EN]
+    validation:
+      status: stage validation and AI-assisted qualitative review complete
+      comparison: RC5.0 Stage composite versus RC6.0 Stage on the same 89-turn maintained corpus
+      corpus: tests/evaluation/behavioral_questions.yaml
+      corpus_name: shopper-behavioral-v2
+      corpus_sha256: b38737db86af5f69b4df78ff1e3f51054809a950b0617f70c9813e6b1ea88dff
+      suite: full
+      environment: stage through Shopper Assistant API
+      shopper_assistant_api_revision: edc0179882185a0c8bdaa592faa7c46be159aec2
+      completed_at: '2026-08-17T18:46:44Z'
+      conversations: 62
+      multi_turn_conversations: 21
+      turns: 89
+      completed: 89
+      errors: 0
+      execution_failures: 0
+      skipped_turns: 0
+      transport_retries: 0
+      empty_responses: 0
+      business_intent_aligned: 58
+      raw_harness_rag_expectation_aligned: 86
+      rag_indications: 47
+      rag_indications_with_audit_metadata: 47
+      evidence_exposed_rag_turns: 42
+      evidence_exposed_rag_turns_with_audit_metadata: 42
+      rag_statuses: {success: 42, insufficient: 5}
+      repeated_rag_calls: 0
+      mean_seconds: 8.559
+      median_seconds: 8.143
+      p95_seconds: 13.725
+      sensitive_value_echoes: 0
+      serialized_envelopes_exposed: 0
+      repository_tests: {passed: 679, failed: 0, total: 679}
+      critical_assertions: {passed: 25, failed: 1, total: 26}
+      post_deployment_pilot:
+        shopper_assistant_api_revision: ecb075dbceb43f0d150d7f4329f7a6ae523a8a21
+        completed_at: '2026-08-17T23:08:32Z'
+        conversations: 12
+        turns: 29
+        completed: 29
+        execution_failures: 0
+        transport_retries: 0
+        empty_responses: 0
+        rag_indications: 21
+        rag_indications_with_audit_metadata: 21
+      qualitative_review:
+        review_type: watsonx.ai first-pass judging with independent rubric review and reconciliation
+        model_id: openai/gpt-oss-120b
+        prompt_version: shopper-qualitative-judge-v1
+        rubric_sha256: c1c6ed978967d5c9f30286255bce70f187cd5a40369ec128160987376def22fb
+        turns_reviewed: 89
+        judge_errors: 0
+        agent_behavior: {meets: 84, mixed: 2, misses: 3}
+        response_quality: {meets: 76, mixed: 7, misses: 6}
+        retrieval_quality: {graded_turns: 42, meets: 34, mixed: 4, misses: 4, not_graded: 47}
+        critical_issues: {agent_behavior: 0, retrieval_quality: 0, response_quality: 2}
+        multi_turn_scenarios:
+          total: 21
+          behavior: {meets: 18, mixed: 1, misses: 2}
+          response_quality: {meets: 16, mixed: 2, misses: 3}
+          critical_issues: 0
+      judgment_provenance:
+        stage:
+          results_sha256: daf1295ade6a3c036c534778cc6a8b4b3674e149f9c72cd43e654ab22f36b64c
+          judgments_sha256: ea29e518f4a5ed562bff7d8e177ed4c3f7f098b4c52f57271a5a273dfcca9ce9
+          final_review_sha256: 010cc768d380bfdc1bba90b363b2b08ae8d637d2aa83a556bf9bfbb879990960
+          critical_assertions_sha256: cb61c677b12f27a8e775881206e48f89090c486cb4a12f4a1e584d6ad2f95b7e
+        storage: local_gitignored
+      artifacts_committed: true
+      artifacts:
+        release_snapshot: tests/evaluation/release_snapshots/rc6.0
+        run: tests/evaluation/release_snapshots/rc6.0/run.json
+        questions: tests/evaluation/release_snapshots/rc6.0/questions.yaml
+        responses: tests/evaluation/release_snapshots/rc6.0/responses.jsonl
+        response_grades: tests/evaluation/release_snapshots/rc6.0/component-review.csv
+        conversation_grades: tests/evaluation/release_snapshots/rc6.0/conversation-review.csv
+        summary: tests/evaluation/release_snapshots/rc6.0/summary.json
+        checksums: tests/evaluation/release_snapshots/rc6.0/checksums.sha256
+        grading_rubric: tests/evaluation/QUALITATIVE_GRADING_RUBRIC.md
+  - name: RC5.0
+    released_on: 2026-08-10
+    status: stage validation complete; release review pending
+    audience: release review and client UAT
+    notes: rc5.0.md
+    source:
+      branch: main
+      baseline_repository_revision: 4b3291e70aaebe0b8f2a0f83a3dd0d107ca3d25e
+      repository_revision: 42ac5e7f145b10d30ba83cfb9298d2e38a81625f
+      source_bundle_sha256: b6217d58e100874e9a5d9256091dff6404dca7e3862785923e867effce2f8f1c
+      agent_definition_sha256: f2c29349e711d6f61d9dd001ee75871bf50281e5b65e5490f126362372df34be
+    deployment:
+      environments: [stage]
+      agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+      shopper_assistant_api_revision: a9a62004af8f34bfad1b90ae4733bf49f10caf1b
+      stage_shopper_assistant_api: https://elv-d2c-shopper-assistant-api-stage.2a6km91zabtc.us-south.codeengine.appdomain.cloud
+      rag_collections: [IOLS_EN, MOLS_EN]
+    validation:
+      status: stage validation and AI + human qualitative review complete
+      comparison: refreshed RC4.0 Stage 73-turn run versus RC5.0 Stage 76-turn run under the same AI + human review standard
+      corpus: tests/evaluation/behavioral_questions.yaml
+      corpus_name: shopper-behavioral-v2
+      corpus_sha256: 0e7c44f749c8893e7a77f056ea40f232bb012479508cb3a5b0ef950c2f6fc127
+      suite: full
+      environment: stage through Shopper Assistant API
+      completed_at: '2026-08-10T23:29:04Z'
+      conversations: 53
+      multi_turn_conversations: 18
+      turns: 76
+      completed: 76
+      errors: 0
+      execution_failures: 0
+      skipped_turns: 0
+      transport_retries: 0
+      empty_responses: 0
+      business_intent_aligned: 64
+      raw_harness_rag_expectation_aligned: 66
+      rag_indications: 33
+      rag_indications_with_audit_metadata: 33
+      evidence_exposed_rag_turns: 28
+      evidence_exposed_rag_turns_with_audit_metadata: 28
+      rag_statuses: {success: 28, insufficient: 5}
+      repeated_rag_calls: 0
+      mean_seconds: 7.143
+      median_seconds: 6.961
+      p95_seconds: 11.709
+      sensitive_value_echoes: 0
+      serialized_envelopes_exposed: 0
+      repository_tests: {passed: 654, failed: 0, total: 654}
+      qualitative_review:
+        review_type: watsonx.ai first-pass judging with human rubric review and reconciliation
+        model_id: openai/gpt-oss-120b
+        prompt_version: shopper-qualitative-judge-v1
+        rubric_sha256: c1c6ed978967d5c9f30286255bce70f187cd5a40369ec128160987376def22fb
+        turns_reviewed: 76
+        judge_errors: 0
+        agent_behavior: {meets: 64, mixed: 6, misses: 6}
+        response_quality: {meets: 62, mixed: 9, misses: 5}
+        retrieval_quality: {graded_turns: 28, meets: 25, mixed: 2, misses: 1, not_graded: 48}
+        critical_issues: {agent_behavior: 0, retrieval_quality: 0, response_quality: 0}
+        multi_turn_scenarios:
+          total: 18
+          behavior: {meets: 11, mixed: 3, misses: 4}
+          response_quality: {meets: 11, mixed: 3, misses: 4}
+          critical_issues: 0
+        refreshed_rc4_baseline:
+          review_type: same AI + human rubric review and reconciliation
+          turns_reviewed: 73
+          agent_behavior: {meets: 54, mixed: 6, misses: 13}
+          response_quality: {meets: 52, mixed: 9, misses: 12}
+          multi_turn_scenarios:
+            total: 17
+            behavior: {meets: 10, mixed: 2, misses: 5}
+            response_quality: {meets: 11, mixed: 1, misses: 5}
+            critical_issues: 3
+      matched_local_comparison:
+        source:
+          environment: local through Shopper Assistant API
+          agent_id: ee816a41-3dae-424f-bc21-5f9e40119ab7
+          repository_revision: ceb7ed36356d87fbabb8ff2dc0f11dd33a2fb6ef
+          corpus_sha256: 0e7c44f749c8893e7a77f056ea40f232bb012479508cb3a5b0ef950c2f6fc127
+        operational:
+          conversations: 53
+          multi_turn_conversations: 18
+          turns: 76
+          completed: 76
+          errors: 0
+          execution_failures: 0
+          transport_retries: 0
+          empty_responses: 0
+          business_intent_aligned: 64
+          raw_harness_rag_expectation_aligned: 65
+          rag_indications: 32
+          rag_indications_with_audit_metadata: 32
+          median_seconds: 4.297
+          p95_seconds: 8.600
+        qualitative_review:
+          agent_behavior: {meets: 53, mixed: 7, misses: 16}
+          response_quality: {meets: 60, mixed: 2, misses: 14}
+          retrieval_quality: {graded_turns: 28, meets: 26, mixed: 1, misses: 1, not_graded: 48}
+          critical_issues: 2
+          multi_turn_scenarios:
+            behavior: {meets: 8, mixed: 3, misses: 7}
+            response_quality: {meets: 11, mixed: 1, misses: 6}
+            critical_issues: 0
+        paired_turn_outcomes:
+          agent_behavior: {improved: 11, unchanged: 58, regressed: 7}
+          response_quality: {improved: 6, unchanged: 66, regressed: 4}
+          retrieval_quality_jointly_graded: {improved: 1, unchanged: 24, regressed: 1}
+      selection_continuation_regression:
+        turns: 3
+        completed: 3
+        business_intent_aligned: 3
+        rag_expectation_aligned: 3
+        terminal_selection_route: plan_search
+        selected_plan_ids: [8XVY, 8XWN]
+        local_agent_behavior: {meets: 0, mixed: 1, misses: 2}
+        stage_agent_behavior: {meets: 3, mixed: 0, misses: 0}
+        stage_response_quality: {meets: 2, mixed: 1, misses: 0}
+        finding: Stage fixes the guardrail and conversation-continuity defect under the matched automated judge
+      judgment_provenance:
+        refreshed_rc4_stage:
+          results_sha256: 19a608f299c04434f8f82357551c2326a36d8cde90acc9a1dcba8caaebd908ed
+          judgments_sha256: 508171a3b0558c4f65f0af1d87ca16ffa36b9a7d9b644deaa6216c24e8a50ef1
+          final_review_sha256: dc79c97ea6468b4ece75e325312c624fee14176f3c9b4b7fe8a15683e7260666
+        stage:
+          results_sha256: 8c62e85af63bb08ed4c89a0195b9b472d90e070fc7a60ff10369bc45f34810e4
+          judgments_sha256: 2bf46d54bb4b999fed7c692e1c45ec14bed6bd4a373d4e91d675f2db32dfb689
+        local:
+          results_sha256: 2ee8355a8563f717bce5c73bc6859e91da56d240fdfbd75e58d5698decad20f9
+          judgments_sha256: eeef4c94d91a3dbbb249f6db794928b494c92141a731ce850a09299fe591ae60
+        storage: local_gitignored
+      artifacts_committed: true
+      artifacts:
+        release_snapshot: tests/evaluation/release_snapshots/rc5.0
+        run: tests/evaluation/release_snapshots/rc5.0/run.json
+        questions: tests/evaluation/release_snapshots/rc5.0/questions.yaml
+        responses: tests/evaluation/release_snapshots/rc5.0/responses.jsonl
+        response_grades: tests/evaluation/release_snapshots/rc5.0/component-review.csv
+        conversation_grades: tests/evaluation/release_snapshots/rc5.0/conversation-review.csv
+        summary: tests/evaluation/release_snapshots/rc5.0/summary.json
+        checksums: tests/evaluation/release_snapshots/rc5.0/checksums.sha256
+        grading_rubric: tests/evaluation/QUALITATIVE_GRADING_RUBRIC.md
+  - name: RC4.0
+    released_on: 2026-08-03
+    status: stage validation complete; release review pending
+    audience: release review and client UAT
+    notes: rc4.0.md
+    source:
+      branch: main
+      repository_revision: 4b3291e70aaebe0b8f2a0f83a3dd0d107ca3d25e
+      source_bundle_sha256: 5c6919249cbc8389ab1156afba4d9487bfa23087b850073e948882b1c72cf7a6
+      agent_definition_sha256: dfec029a331f0900bf3c0d1503d5ddc241ff19d61c2a515e5e40ade547ee9705
+      import_receipt_git_dirty: false
+    deployment:
+      environments: [stage]
+      agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+      shopper_assistant_api_revision: 2e1d73aaa083a1e1e2534ea62ce3acbfc0a627d4
+      stage_shopper_assistant_api: https://elv-d2c-shopper-assistant-api-stage.2a6km91zabtc.us-south.codeengine.appdomain.cloud
+    validation:
+      comparison: RC3.1; 57 shared turns plus 2 added clarification turns
+      corpus: tests/evaluation/behavioral_questions.yaml
+      corpus_name: shopper-behavioral-v2
+      suite: full
+      environment: stage
+      conversations: 40
+      multi_turn_conversations: 15
+      turns: 59
+      completed: 59
+      errors: 0
+      execution_failures: 0
+      skipped_turns: 0
+      transport_retries: 0
+      rag_indications: 49
+      rag_indications_with_audit_metadata: 37
+      evidence_exposed_rag_turns: 34
+      evidence_exposed_rag_turns_with_audit_metadata: 34
+      raw_harness_rag_expectation_aligned: 48
+      validated_rag_expectation_aligned: 57
+      validated_rag_expectation_method: human review of public evidence, status, and audit signals
+      validated_rag_unnecessary_search_turns:
+        - behavioral_ind_er_casual_selection_01
+        - behavioral_medicare_unicode_selection_01
+      median_seconds: 9.167
+      p95_seconds: 14.863
+      sensitive_value_echoes: 0
+      serialized_envelopes_exposed: 0
+      repository_tests: {passed: 524, failed: 0, total: 524}
+      qualitative_review:
+        review_type: human turn-by-turn rubric review
+        turns_reviewed: 59
+        shared_turn_comparison:
+          turns: 57
+          agent_behavior: {improved: 5, unchanged: 45, regressed: 7}
+          response_quality: {improved: 12, unchanged: 38, regressed: 7}
+        added_turns: {turns: 2, agent_behavior_meets: 2, response_quality_meets: 2}
+        agent_behavior: {meets: 47, mixed: 9, misses: 3}
+        response_quality: {meets: 36, mixed: 16, misses: 7}
+        retrieval_quality: {graded_turns: 34, meets: 25, mixed: 5, misses: 4, not_graded: 25}
+        critical_issues: {agent_behavior: 2, retrieval_quality: 1, response_quality: 6}
+        multi_turn_scenarios:
+          total: 15
+          behavior: {meets: 9, mixed: 5, misses: 1}
+          response_quality: {meets: 4, mixed: 8, misses: 3}
+          critical_issues: 3
+      artifacts_committed: true
+      artifacts:
+        release_snapshot: tests/evaluation/release_snapshots/rc4.0
+        run: tests/evaluation/release_snapshots/rc4.0/run.json
+        questions: tests/evaluation/release_snapshots/rc4.0/questions.yaml
+        responses: tests/evaluation/release_snapshots/rc4.0/responses.jsonl
+        response_grades: tests/evaluation/release_snapshots/rc4.0/component-review.csv
+        conversation_grades: tests/evaluation/release_snapshots/rc4.0/conversation-review.csv
+        summary: tests/evaluation/release_snapshots/rc4.0/summary.json
+        checksums: tests/evaluation/release_snapshots/rc4.0/checksums.sha256
+        grading_rubric: tests/evaluation/QUALITATIVE_GRADING_RUBRIC.md
+  - name: RC3.1
+    released_on: 2026-07-29
+    status: deployed to dev and stage; client UAT in progress
+    audience: client UAT
+    notes: rc3.1.md
+    source:
+      branch: main
+      repository_revision: ef9e17aed3fe5168808b9dfc7f94a005ef80e6fc
+      agent_definition_revision: ab76eeb
+    deployment:
+      environments: [dev, stage]
+      agent_id: 38f70381-b830-47b7-95e6-365f744e096a
+      shopper_assistant_api_revision: 74b849d111cb92621094a47cf12272c6268c3d13
+      stage_shopper_assistant_api: https://elv-d2c-shopper-assistant-api-stage.2a6km91zabtc.us-south.codeengine.appdomain.cloud
+    validation:
+      comparison: none; current corpus was evaluated independently
+      corpus: tests/evaluation/behavioral_questions.yaml
+      corpus_name: shopper-behavioral-v2
+      suite: full
+      environment: stage
+      conversations: 38
+      multi_turn_conversations: 15
+      turns: 57
+      completed: 57
+      errors: 0
+      execution_failures: 0
+      skipped_turns: 0
+      transport_retries: 0
+      rag_calls: 36
+      rag_calls_with_audit_metadata: 36
+      rag_expectation_aligned: 55
+      median_seconds: 10.172
+      p95_seconds: 14.113
+      sensitive_value_echoes: 0
+      serialized_envelopes_exposed: 0
+      qualitative_review:
+        review_type: turn-by-turn rubric review
+        turns_reviewed: 57
+        agent_behavior: {meets: 48, mixed: 5, misses: 4}
+        response_quality: {meets: 32, mixed: 14, misses: 11}
+        retrieval_quality: {graded_turns: 36, meets: 23, mixed: 8, misses: 5, not_graded: 21}
+        critical_issues: {agent_behavior: 3, retrieval_quality: 3, response_quality: 9}
+        multi_turn_scenarios:
+          total: 15
+          behavior: {meets: 10, mixed: 3, misses: 2}
+          response_quality: {meets: 2, mixed: 8, misses: 5}
+          critical_issues: 4
+      artifacts_committed: true
+      artifacts:
+        release_snapshot: tests/evaluation/release_snapshots/rc3.1
+        run: tests/evaluation/release_snapshots/rc3.1/run.json
+        questions: tests/evaluation/release_snapshots/rc3.1/questions.yaml
+        responses: tests/evaluation/release_snapshots/rc3.1/responses.jsonl
+        response_grades: tests/evaluation/release_snapshots/rc3.1/component-review.csv
+        conversation_grades: tests/evaluation/release_snapshots/rc3.1/conversation-review.csv
+        summary: tests/evaluation/release_snapshots/rc3.1/summary.json
+        checksums: tests/evaluation/release_snapshots/rc3.1/checksums.sha256
+        grading_rubric: tests/evaluation/QUALITATIVE_GRADING_RUBRIC.md
+  - name: RC3.0
+    released_on: 2026-07-27
+    status: deployed
+    audience: client UAT
+    notes: rc3.0.md
+    source:
+      branch: feature/search-plans-local-e2e
+      baseline_branch: main
+      deployed_source_revision: f48d39e
+      deployed_source_revision_provenance: evaluation_cli_argument
+      deployed_asset_definition_hash_available: false
+      post_deployment_cleanup_revision: c734955
+      post_deployment_cleanup_stage_validated: false
+      stage_validation_applies_to: f48d39e
+    deployment:
+      environment: stage
+      agent_name: Elevance_Health_Shopper_Portal
+      agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+      shopper_assistant_api: https://elv-d2c-shopper-assistant-api-stage.2a6km91zabtc.us-south.codeengine.appdomain.cloud
+    comparison:
+      suite: full
+      conversations: 62
+      turns_per_candidate: 133
+      previous_stage_agent_id: c453733a-a531-494e-8325-13474ee5a641
+      rc3_stage_agent_id: 65b0ad24-4e50-471e-979f-e10b60055ff9
+      previous_stage:
+        completed: 133
+        errors: 0
+        median_seconds: 24.266
+        p95_seconds: 33.576
+        rag_calls_with_audit_metadata: 25
+      rc3_stage:
+        completed: 133
+        errors: 0
+        median_seconds: 17.992
+        p95_seconds: 24.942
+        rag_calls_with_audit_metadata: 74
+      qualitative_review:
+        responses_reviewed: 133
+        agent_behavior:
+          previous_stage: {meets: 83, mixed: 26, misses: 24}
+          rc3_stage: {meets: 122, mixed: 9, misses: 2}
+        response_quality:
+          previous_stage: {meets: 61, mixed: 48, misses: 24}
+          rc3_stage: {meets: 93, mixed: 32, misses: 8}
+        retrieval_quality:
+          previous_stage: {graded_turns: 53, meets: 19, mixed: 20, misses: 14, not_graded: 80}
+          rc3_stage: {graded_turns: 59, meets: 36, mixed: 11, misses: 12, not_graded: 74}
+        retrieval_observability:
+          previous_stage:
+            no_retrieval_indication: 63
+            retrieval_indicated_no_evidence: 17
+            evidence_exposed_status_missing: 42
+            evidence_and_status_exposed: 11
+          rc3_stage:
+            no_retrieval_indication: 23
+            retrieval_indicated_no_evidence: 51
+            evidence_exposed_status_missing: 0
+            evidence_and_status_exposed: 59
+      contract_integrity:
+        previous_stage:
+          business_intent_present: 70
+          agent_identity_present: 126
+          audit_present: 25
+        rc3_stage:
+          business_intent_present: 133
+          agent_identity_present: 133
+          audit_present: 76
+      artifacts:
+        release_snapshot: tests/evaluation/release_snapshots/rc3.0
+        previous_stage: tests/evaluation/release_snapshots/rc3.0/baseline-run.json
+        rc3_stage: tests/evaluation/release_snapshots/rc3.0/candidate-run.json
+        comparison: tests/evaluation/release_snapshots/rc3.0/comparison-summary.json
+        responses: tests/evaluation/release_snapshots/rc3.0/responses.jsonl
+        response_grades: tests/evaluation/release_snapshots/rc3.0/component-review.csv
+        checksums: tests/evaluation/release_snapshots/rc3.0/checksums.sha256
+        grading_rubric: tests/evaluation/QUALITATIVE_GRADING_RUBRIC.md
